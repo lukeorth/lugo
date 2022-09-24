@@ -1,0 +1,19 @@
+<header id="header">
+    <div id="header-outer" class="outer">
+        <div id="header-inner" class="inner">
+            <a id="main-nav-toggle" class="nav-icon" href="javascript:;"></a>
+            <a style="float: left" id="logo" class="logo-text" href="{{ .Site.Home.Permalink }}">{{ .Site.Title }}</a>
+            <a target="_blank" style="float: right" class="logo-text linkedin" href="{{ .Site.Params.linkedin_url }}"><img src="/icons/linkedin.svg" width="35" height="35"></img></a>
+            <a target="_blank" style="float: right" class="logo-text" href="{{ .Site.Params.github_url }}"><img src="/icons/github.svg" width="35" height="35"></img></a>
+            <nav id="main-nav">
+                {{ range .Site.Menus.main }}
+                <a class="main-nav-link" href="{{ .URL }}">{{ .Name }}</a>
+                {{ end }}
+            </nav>
+            <nav id="sub-nav">
+                <div id="search-form-wrap">
+                </div>
+            </nav>
+        </div>
+    </div>
+</header>

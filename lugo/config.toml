@@ -1,0 +1,29 @@
+baseURL = 'http://example.org/'
+languageCode = 'en-us'
+title = 'Luke Orth'
+theme = "hugo-theme-minos"
+paginate = 10
+
+[params]
+    customCss = ["css/overrides.css"]
+    smartToc = true
+    katex = true
+
+    github_url = 'https://github.com/LukeOrth'
+    linkedin_url = 'https://linkedin.com/in/lukeorth'
+
+[markup]
+  [markup.highlight]
+    anchorLineNos = false
+    codeFences = true
+    guessSyntax = false
+    hl_Lines = ''
+    hl_inline = false
+    lineAnchors = ''
+    lineNoStart = 1
+    lineNos = false
+    lineNumbersInTable = false
+    noClasses = true
+    noHl = false
+    style = 'monokai'
+    tabWidth = 4

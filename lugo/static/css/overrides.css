@@ -1,0 +1,11 @@
+.inline-svg {
+  display: inline-block;
+  height: 1.15rem;
+  width: 1.15rem;
+  top: 0.15rem;
+  position: relative;
+}
+
+.linkedin {
+    filter: invert(25%) sepia(59%) saturate(5797%) hue-rotate(185deg) brightness(96%) contrast(102%);
+}
