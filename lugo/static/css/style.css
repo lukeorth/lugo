@@ -1,0 +1,22 @@
+.bullet {
+    margin-left: 1em;
+    text-decoration-line: underline;
+    text-decoration-style: dotted;
+    text-decoration-thickness: 1%;
+}
+
+.date {
+    margin-top: 0.5em;
+}
+
+.social {
+    margin-right: 0.5em;
+}
+
+.heading {
+    margin-top: 1em;
+}
+
+ul hr {
+    height: 0em;
+}

@@ -1,10 +1,11 @@
 ---
-title: "Test"
-date: 2022-09-13T04:30:53-05:00
+title: "A Brave New World"
+date: 2022-08-13T04:30:53-05:00
 draft: false
-featuredImage: "img/geeky_baby_1.jpg"
+#featuredImage: "img/geeky_baby_1.jpg"
 tags: ["tag1", "tag2", "tag3"]
-categories: ["cat1"]
+series: ["Hugo is Cool"]
+summary: "Hi mom"
 ---
 
 # First H1

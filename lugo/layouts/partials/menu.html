@@ -1,0 +1,34 @@
+<ul class="sidebar-nav">
+{{ range .Site.Sections.ByTitle }}
+    {{ if in .Site.Params.menuSinglePages .Title }}
+        {{ range .Pages }}
+            <li class="heading">
+                <a href="{{ .Permalink }}">{{ .Title }}</a>
+            </li>
+        {{ end }}
+    {{ end }}
+    {{ if in .Site.Params.menuGroupByDate .Title }}
+        <li class="heading">
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+        </li>
+        {{ range .Pages.GroupByDate "2006" }}
+            <li class="date">{{ .Key }}</li>
+            {{ range .Pages }}
+                <li class="bullet">
+                    <a href="{{ .Permalink }}">{{ .Title }}</a>
+                </li>
+            {{ end }}
+        {{ end }}
+    {{ end }}
+    {{ if in .Site.Params.menuDirectories .Title }}
+        <li class="heading">
+            <a href="{{ .Permalink }}">{{ .Title }}</a>
+        </li>
+        {{ range .Pages }}
+            <li class="bullet">
+                <a href="{{ .Permalink }}">{{ .Title }}</a>
+            </li>
+        {{ end }}
+    {{ end }}
+{{ end }}
+</ul>

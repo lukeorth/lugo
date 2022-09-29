@@ -5,12 +5,27 @@ theme = "hugo-theme-minos"
 paginate = 10
 
 [params]
-    customCss = ["css/overrides.css"]
+    description = "code by Luke Orth"
+    menuSinglePages = ["Abouts"]
+    menuDirectories = ["Projects"]
+    menuGroupByDate = ["Posts"]
+    customCss = []
     smartToc = true
     katex = true
 
     github_url = 'https://github.com/LukeOrth'
     linkedin_url = 'https://linkedin.com/in/lukeorth'
+[menu]
+[[menu.main]]
+  identifier = 'about'
+  name = 'about'
+  url = '/about/'
+  weight = -100
+[[menu.main]]
+  name = 'projects'
+  post = "<span class='alert'>New!</span>"
+  url = '/projects/'
+  weight = -100
 
 [markup]
   [markup.highlight]
@@ -27,3 +42,8 @@ paginate = 10
     noHl = false
     style = 'monokai'
     tabWidth = 4
+
+[taxonomies]
+    category = 'categories'
+    series = 'series'
+    tag = 'tags'

@@ -1,0 +1,43 @@
+{{ partial "head.html" . }}
+<body>
+    {{ partial "sidebar.html" . }}
+    <div class="content container">
+        <div class="posts">
+            {{ range where (where .Paginator.Pages "Section" "eq" "posts") "Params.hidden" "ne" "true" }}
+            <div class="post">
+                {{ if .Title }}
+                <h1 class="post-title">
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                </h1>
+                {{ end }}
+                <span class="post-date">{{ .Date.Format "January 1, 2006" }}</span>
+                {{ if .Params.tags }}
+                <ul class="tags">
+                    {{ range .Params.tags }}
+                    <li>
+                        <a class="tag-{{ . }}" href="{{ "tags/" | absLangURL }}{{ . | urlize }}">{{ . }}</a>
+                    </li>
+                    {{ end }}
+                </ul>
+                {{ end }}
+                {{ $Site := .Site }}
+                {{ if .Params.series }}
+                    {{ range $i, $e := .Params.series }}
+                        <p class="seriesname">
+                            Series: <a href="{{ $Site.BaseURL }}/series/{{ $e | urlize }}">{{ $e }}</a>
+                        </p>
+                    {{ end }}
+                {{ end }}
+                <p>
+                    {{ if .Params.featuredImage }}<img src="{{.Params.featuredImage}}"><br>{{ end }}
+                    {{ .Summary }}</br>...
+                </p>
+                <p class="more">
+                    <a href="{{ .RelPermalink }}">{{ T "ReadMore" }}</a>
+                </p>
+            </div>
+            {{ end }}
+        </div>
+    </div>
+</body>
+</html>
