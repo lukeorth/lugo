@@ -1,12 +1,29 @@
 ---
-title: "Maze Generator"
-date: 2022-09-13T05:48:53-05:00
-featuredImage: "/img/geeky_baby_1.jpg"
+title: "My Name is Luke Orth"
+date: 2020-07-13T04:30:53-05:00
 draft: false
+#featuredImage: "img/geeky_baby_1.jpg"
+tags: ["tag1", "tag2", "tag3"]
+summary: "Hi mom"
 ---
 
 # First H1
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+{{< highlight go >}}
+
+func GetTitleFunc(style string) func(s string) string {
+  switch strings.ToLower(style) {
+  case "go":
+    return strings.Title
+  case "chicago":
+    return transform.NewTitleConverter(transform.ChicagoStyle)
+  default:
+    return transform.NewTitleConverter(transform.APStyle)
+  }
+}
+
+{{< / highlight >}}
 
 ## First H2
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.

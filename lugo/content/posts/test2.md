@@ -2,7 +2,7 @@
 title: "Hello World"
 date: 2022-09-13T04:30:53-05:00
 draft: false
-tags: ["Luke", "tag2", "tag3"]
+tags: ["web-dev", "hugo"]
 ---
 
 # First H1

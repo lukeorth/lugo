@@ -10,16 +10,18 @@
                     <a href="{{ .RelPermalink }}">{{ .Title }}</a>
                 </h1>
                 {{ end }}
-                <span class="post-date">{{ .Date.Format "January 1, 2006" }}</span>
-                {{ if .Params.tags }}
-                <ul class="tags">
-                    {{ range .Params.tags }}
-                    <li>
-                        <a class="tag-{{ . }}" href="{{ "tags/" | absLangURL }}{{ . | urlize }}">{{ . }}</a>
-                    </li>
+                <div class="meta">
+                    <span class="post-date">{{ .Date.Format "January 1, 2006" }}</span>
+                    {{ if .Params.tags }}
+                    <ul class="tags">
+                        {{ range .Params.tags }}
+                        <li class="tag-{{ . }}">
+                            <a href="{{ "tags/" | absLangURL }}{{ . | urlize }}">{{ . }}</a>
+                        </li>
+                        {{ end }}
+                    </ul>
                     {{ end }}
-                </ul>
-                {{ end }}
+                </div>
                 {{ $Site := .Site }}
                 {{ if .Params.series }}
                     {{ range $i, $e := .Params.series }}

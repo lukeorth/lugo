@@ -1,0 +1,16 @@
+{{ partial "head.html" . }}
+<body>
+    {{ partial "sidebar.html" . }}
+    <div class="content container">
+        <h1 class="title">{{ .Title }}</h1>
+        <ul class="entries">
+            {{ range .Pages.GroupByDate "2006" }}
+                <h3 style="text-align: center;">{{ .Key }}</h3>
+                {{ range .Pages }}
+                    {{ partial "li.html" . }}
+                {{ end }}
+            {{ end }}
+        </ul>
+    </div>
+</body>
+</html>

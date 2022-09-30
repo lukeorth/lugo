@@ -1,22 +1,117 @@
-.bullet {
-    margin-left: 1em;
-    text-decoration-line: underline;
-    text-decoration-style: dotted;
-    text-decoration-thickness: 1%;
+:root {
+    --white: #dedddb;
+    --green: #323c24;
+    --grey: #88807e;
+    --blue: #303c4c;
+    --black: #262121;
 }
 
-.date {
-    margin-top: 0.5em;
+@media (min-width: 48em) {
+    .bullet {
+        margin-left: 1em;
+        text-decoration-line: underline;
+        text-decoration-style: dotted;
+        text-decoration-thickness: 1%;
+    }
+    .sub-heading {
+        margin-left: 1em;
+    }
 }
 
+@media (max-width: 48em) {
+    .heading {
+        font-weight: 400;
+    }
+    .entries {
+        padding-left: 0em;
+    }
+}
 .social {
     margin-right: 0.5em;
+    text-decoration: none !important;
 }
-
 .heading {
     margin-top: 1em;
 }
+.meta span {
+    display: inline-block;
+}
+.meta ul {
+    display: inline-block;
+    float: right;
+}
+.meta ul li {
+    margin-left: 0.5em;
+}
+.tags {
+    padding-left: 0em;
+}
+.tags li {
+    display: inline;
+    text-decoration: none;
+}
+.tags li a {
+    color: white;
+    display: inline-block;
+    padding: 0em 0.7em;
+    text-align: center;
+    font-size: 0.7em;
+    background-color: #828282;
+    border-radius: 0.2em;
+}
+.entries li {
+    display: flex;
+}
+.entries li .title {
+    order: 1;
+}
+.entries li .published {
+    order: 3;
+}
+.entries li::after {
+    background-image: radial-gradient(circle, currentcolor 1px, transparent 1.5px);
+    background-position: bottom;
+    background-size: 1ex 3.5px;
+    background-repeat: space no-repeat;
+    content: "";
+    flex-grow: 1;
+    height: 1.1em;
+    order: 2;
+}
 
-ul hr {
-    height: 0em;
+.article-toc {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 110px;
+    font-size: 0.9em;
+    width: 20em;
+    margin-left: 400px;
+    padding-left: 20px;
+    overflow-y: auto;
+    line-height: 1.4em;
+    max-height: 85%;
+}
+.article-toc h4 {
+    margin-left: 6em;
+}
+.article-toc li {
+    list-style: none;
+    margin-left: 20px;
+    margin-top: 2px;
+}
+.article-toc li a {
+    color: #000;
+    text-decoration: none;
+}
+.article-toc li a.active {
+    font-weight: bold;
+}
+#TableOfContents {
+    margin-left: 5em;
+}
+@media screen and (min-width: 100em) {
+    .article-toc {
+        display: block;
+    }
 }

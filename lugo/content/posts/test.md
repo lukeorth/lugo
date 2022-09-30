@@ -3,7 +3,7 @@ title: "This is an actual test"
 date: 2021-02-13T04:30:53-05:00
 draft: false
 #featuredImage: "img/geeky_baby_1.jpg"
-tags: ["tag1", "tag2", "tag3"]
+tags: ["hugo", "web-dev"]
 summary: "Hi mom"
 ---
 

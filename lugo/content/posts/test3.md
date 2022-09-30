@@ -3,7 +3,7 @@ title: "A Brave New World"
 date: 2022-08-13T04:30:53-05:00
 draft: false
 #featuredImage: "img/geeky_baby_1.jpg"
-tags: ["tag1", "tag2", "tag3"]
+tags: ["golang", "C", "linux"]
 series: ["Hugo is Cool"]
 summary: "Hi mom"
 ---

@@ -1,1 +1,21 @@
-<h1>HI MOM</h1>
+{{ partial "head.html" . }}
+<body>
+    {{ partial "sidebar.html" . }}
+    <div class="content container">
+        <h1 class="title">{{ .Title }}</h1>
+        <div class="projects">
+            {{ range .Paginator.Pages }}
+                <div class="project">
+                    <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+                    <p>
+                        {{ if .Params.featuredImage }}
+                            <img src="{{ .Params.featuredImage }}"><br>
+                        {{ end }}
+                        {{ .Summary }}
+                    </p>
+                </div>
+            {{ end }}
+        </div>
+    </div>
+</body>
+</html>

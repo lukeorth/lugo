@@ -3,7 +3,7 @@
     {{ if in .Site.Params.menuSinglePages .Title }}
         {{ range .Pages }}
             <li class="heading">
-                <a href="{{ .Permalink }}">{{ .Title }}</a>
+                <a href="{{ .Parent.Permalink }}">{{ .Title }}</a>
             </li>
         {{ end }}
     {{ end }}
@@ -11,13 +11,12 @@
         <li class="heading">
             <a href="{{ .Permalink }}">{{ .Title }}</a>
         </li>
-        {{ range .Pages.GroupByDate "2006" }}
-            <li class="date">{{ .Key }}</li>
-            {{ range .Pages }}
-                <li class="bullet">
-                    <a href="{{ .Permalink }}">{{ .Title }}</a>
-                </li>
-            {{ end }}
+        {{ $numPostsShown := 4 }}
+        <li class="sub-heading">Recent</li>
+        {{ range (first $numPostsShown .Pages) }}
+            <li class="bullet">
+                <a href="{{ .Permalink }}">{{ .Title }}</a>
+            </li>
         {{ end }}
     {{ end }}
     {{ if in .Site.Params.menuDirectories .Title }}
