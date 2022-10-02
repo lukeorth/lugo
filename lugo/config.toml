@@ -2,7 +2,7 @@ baseURL = 'http://example.org/'
 languageCode = 'en-us'
 title = 'Luke Orth'
 theme = "hugo-theme-minos"
-paginate = 10
+paginate = 6
 
 [params]
     description = "code by Luke Orth"
@@ -46,4 +46,4 @@ paginate = 10
 [taxonomies]
     category = 'categories'
     series = 'series'
-    tag = 'tags'
+    tags = 'tags'

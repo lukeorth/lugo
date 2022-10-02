@@ -18,27 +18,15 @@
             </div>
             {{ $Site := .Site }}
             {{ if .Params.series }}
-                {{ range $i, $e := .Params.series }}
-                    <p class="seriesname">
-                        Series: <a href="{{ $Site.BaseURL }}/series/{{ $e | urlize }}">{{ $e }}</a>
-                    </p>
-                {{ end }}
+                <p class="seriesname">
+                    Series: <a href="{{ $Site.BaseURL }}/series/{{ .Params.series | urlize }}">{{ .Params.series }}</a>
+                </p>
             {{ end }}
             <div class="article-entry">
                 {{ .Content }}
             </div>
             <hr>
-            {{ if .Params.series }}
-                {{ range $i, $e := .Params.series }}
-                    <p class="footer">
-                        This is a post in the <a href="{{ $Site.BaseURL }}/series/{{ $e | urlize }}">{{ $e }}</a> series.
-                        <br>Other posts in this series:
-                        <ul class="series">
-                        </ul>
-                    </p>
-                {{ end }}
-            {{ end }}
-
+            {{ partial "footer.html" . }} 
             {{ if not .Params.notoc }}
             {{ if .TableOfContents }}
             <div class="article-toc" {{ if .Site.Params.SmartToc }}style="display:none;"{{ end }}>

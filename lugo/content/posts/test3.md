@@ -4,7 +4,7 @@ date: 2022-08-13T04:30:53-05:00
 draft: false
 #featuredImage: "img/geeky_baby_1.jpg"
 tags: ["golang", "C", "linux"]
-series: ["Hugo is Cool"]
+series: "Hugo is Cool"
 summary: "Hi mom"
 ---
 

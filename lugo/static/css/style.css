@@ -115,3 +115,6 @@
         display: block;
     }
 }
+.next-post {
+    float: right;
+}

@@ -24,11 +24,9 @@
                 </div>
                 {{ $Site := .Site }}
                 {{ if .Params.series }}
-                    {{ range $i, $e := .Params.series }}
-                        <p class="seriesname">
-                            Series: <a href="{{ $Site.BaseURL }}/series/{{ $e | urlize }}">{{ $e }}</a>
-                        </p>
-                    {{ end }}
+                    <p class="seriesname">
+                        Series: <a href="{{ $Site.BaseURL }}/series/{{ .Params.series | urlize }}">{{ .Params.series }}</a>
+                    </p>
                 {{ end }}
                 <p>
                     {{ if .Params.featuredImage }}<img src="{{.Params.featuredImage}}"><br>{{ end }}
@@ -40,6 +38,7 @@
             </div>
             {{ end }}
         </div>
+        {{ partial "pagination.html" . }}
     </div>
 </body>
 </html>
