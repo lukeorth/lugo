@@ -1,0 +1,4 @@
+[submodule "lugo/public"]
+	path = lugo/public
+	url = git@github.com:LukeOrth/lukeorth.github.io.git
+	branch = main
