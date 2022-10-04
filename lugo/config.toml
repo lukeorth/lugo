@@ -1,7 +1,6 @@
 baseURL = 'https://lukeorth.com'
 languageCode = 'en-us'
 title = 'Luke Orth'
-theme = "hugo-theme-minos"
 paginate = 6
 
 [params]
