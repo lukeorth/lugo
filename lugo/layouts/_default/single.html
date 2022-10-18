@@ -73,6 +73,18 @@
                 })();
             </script>
             {{ end }}
+            {{ if .Site.Params.katex }}
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        renderMathInElement(document.body, {
+                            delimiters: [
+                                {left: "$$", right: "$$", display: true},
+                                {left: "$", right: "$", display: false}
+                            ]
+                        });
+                    });
+                </script>
+            {{ end }}
         </div>
     </div>
 </body>

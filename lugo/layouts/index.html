@@ -28,14 +28,28 @@
                         Series: <a href="{{ $Site.BaseURL }}/series/{{ .Params.series | urlize }}">{{ .Params.series }}</a>
                     </p>
                 {{ end }}
-                <p>
-                    {{ if .Params.featuredImage }}<img src="{{.Params.featuredImage}}"><br>{{ end }}
-                    {{ .Summary }}</br>...
-                </p>
+                {{ if .Params.featuredImage }}
+                    <p>
+                        <img src="{{.Params.featuredImage}}"><br>
+                    </p>
+                {{ end }}
+                {{ .Summary }}
                 <p class="more">
-                    <a href="{{ .RelPermalink }}">{{ T "ReadMore" }}</a>
+                    <a href="{{ .RelPermalink }}">Read More</a>
                 </p>
             </div>
+            {{ end }}
+            {{ if .Site.Params.katex }}
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        renderMathInElement(document.body, {
+                            delimiters: [
+                                {left: "$$", right: "$$", display: true},
+                                {left: "$", right: "$", display: false}
+                            ]
+                        });
+                    });
+                </script>
             {{ end }}
         </div>
         {{ partial "pagination.html" . }}
