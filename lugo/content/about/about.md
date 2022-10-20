@@ -7,6 +7,4 @@ nonav: true
 hidden: true
 ---
 
-I have been professionally developing software since 2019.
-
-I enjoy long walks on the beach, beautiful night skies, and lattes with extra foam.
+I enjoy long walks on the beach, beautiful harvest moons, and lattes with extra foam.

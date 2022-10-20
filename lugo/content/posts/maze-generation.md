@@ -4,47 +4,49 @@ date: 2022-10-04T11:12:19-05:00
 draft: false
 ---
 
-I recently came across [this video series](https://www.youtube.com/watch?v=HyK_Q5rrcr4) by The Coding Train (Daniel Shiffman) and I was mesmerized.  By using a [recursive backtracking algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_implementation), he was able to generate random mazes and display their creation in real time.  Pretty neat.
+In [this video series](https://www.youtube.com/watch?v=HyK_Q5rrcr4), Daniel Shiffman (The Coding Train) uses a [recursive backtracking algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_implementation) to generate mazes and display their creation in real time.  Pretty neat.
 
-Shiffman used the [p5.js](https://p5js.org/) library in his series, so I thought it would be fun to port it to Go and document the journey.
+Shiffman uses the [p5.js](https://p5js.org/) library in his example, so I thought it would be fun to port it to Go and document the process.  While you don't need to have watched Shiffman's series prior to reading this post, I do recommend it.  I will be referencing his code throughout the post.
 
 ## The Algorithm
 
-Like Shiffman, we'll use a recursive backtracking algorithm to generate the mazes.  This is a randomized version of the [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) (DFS) algorithm, called via a recursive routine.
+Like Shiffman, we will use a recursive backtracking algorithm to generate our mazes.  The implementation is similar to [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) (DFS) with a slight twist.
 
-One thing to note with this approach is its bias towards mazes with long passageways---a product of DFS's low branching factor.  While that's not necessarily a bad thing, it will reduce the complexity of the mazes being generated.
+Let's walk through the animation (above) to get a better understanding.  We start with an empty grid of cells.  The algorithm then forms a path by "drilling" through the grid, cell by cell, removing any impeding walls along the way.  At each step, the next cell is chosen at *random*.  This produces the maze effect.  If our algorithm ever becomes "trapped", meaning it's unable to move forward without either going out of bounds or "drilling" into a previously explored cell, it will backtrack until it can continue exploring new cells.
 
-With that said, our algorithm can be defined as follows:
+As seen in the algorithm's formal definition below, this is a randomized version of DFS, called with a recursive routine.
 
-1. Choose a starting cell and make it the current cell
+1. Choose a "start" cell and make it the current cell
 2. Mark the current cell as visited
 3. While the current cell has unvisited neighbor cells
     1. Choose one of the unvisited neighbors
     2. Remove the wall between the current cell and the neighbor cell
-    3. Invoke the routine recursively for the neighbor cell
+    3. Execute this routine recursively for the neighbor cell
+
+One thing to note with this approach is its bias towards mazes with long passageways, which is a result of DFS's low branching factor.  While that's not necessarily a bad thing, it will reduce the complexity of our mazes.
 
 **Note:** For creating mazes without biases, I recommend checking out [Wilson's algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Wilson's_algorithm).
 
 ## Data Structures
 
-We'll represent a maze as a $ 2 \times 2 $ grid of cells implemented with a slice.  To do this, we just need two structs---a *maze* and a *cell*.
+Using the same terminology as our algorithm, we'll define a maze as a grid of *cells*.  To do this, we just need two structs:
 
 {{< highlight go >}}
 package main
 
 type Maze struct {
-    cells   []*Cell
-    cols    int
-    rows    int
+    cells   []*Cell     // the cells (represented as a grid)
+    cols    int         // number of columns
+    rows    int         // number of rows
     scale   int         // width of each cell in pixels
 }
 
 type Cell struct {
-    x       int
-    y       int
-    walls   uint8
-    visited bool
-    current bool
+    x       int         // x coordinate
+    y       int         // y coordinate
+    walls   uint8       // the cell's walls (explained in the next section...)
+    visited bool        // has this cell been visited?
+    current bool        // is this the current cell being evaluated?
 }
 {{</highlight >}}
 
@@ -52,7 +54,7 @@ type Cell struct {
 
 ### Shiffman's Design
 
-In his example, Shiffman used a JavaScript array with four boolean values to represent the walls of a cell.
+Shiffman used an array with four boolean values to represent the four walls of a cell.
 
 {{< highlight javascript >}}
 walls = [true, true, true, true]    // top, right, bottom, left
@@ -65,7 +67,7 @@ walls[2] --> bottom
 walls[3] --> left
 {{</highlight >}}
 
-`true` is used when a wall is present, and `false` when it is absent.
+`true` represents walls that are present. `false` represents walls that are absent.
 
 {{< highlight javascript >}}
 walls = [true, true, false, false]   //       top, right:  ¯|
@@ -73,6 +75,7 @@ walls = [false, false, true, true]   //     bottom, left: |_
 walls = [true, true, false, true]    // top, right, left: |¯|
 {{</highlight >}}
 
+This empowers us to 
 This allows us to describe any wall state with just four boolean values.
 
 ### Our Design
@@ -89,25 +92,26 @@ In this case we'll convert the boolean array from above into a bit array, which 
 Thus the "key" to our wall design can be summed up with the following table.
 
 {{< highlight text >}}
-BITS    INTEGER     WALLS
-0001       1        left                        |
-0010       2        bottom                       _
-0100       4        right                         |
-1000       8        top                          ¯
+BITS    INTEGERS     WALLS                     EXAMPLE
+----    --------     -----                     -------
+0001        1        left                        |
+0010        2        bottom                       _
+0100        4        right                         |
+1000        8        top                          ¯
 
-0011       3        bottom, left                |_
-0101       5        right, left                 | |
-0110       6        right, bottom                _|
-1001       9        top, left                   |¯
-1010      10        top, bottom                 ¯_
-1100      12        top, right                   ¯|
+0011        3        bottom, left                |_
+0101        5        right, left                 | |
+0110        6        right, bottom                _|
+1001        9        top, left                   |¯
+1010       10        top, bottom                 ¯_
+1100       12        top, right                   ¯|
 
-0111       7        right, bottom, left         |_|
-1011      11        top, bottom, left           |¯_
-1101      13        top, right, left            |¯|
-1110      14        top, right, bottom          _¯|
+0111        7        right, bottom, left         |_|
+1011       11        top, bottom, left           |¯_
+1101       13        top, right, left            |¯|
+1110       14        top, right, bottom          _¯|
 
-1111      15        top, right, bottom, left     □
+1111       15        top, right, bottom, left     □
 
 {{</highlight >}}
 
