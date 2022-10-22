@@ -1,7 +1,7 @@
 ---
 title: "Maze Generator"
 date: 2022-09-13T05:48:53-05:00
-featuredImage: "/img/geeky_baby_1.jpg"
+featuredImage: "/images/geeky_baby_1.jpg"
 draft: false
 ---
 

@@ -6,6 +6,8 @@ draft: false
 
 In [this video series](https://www.youtube.com/watch?v=HyK_Q5rrcr4), Daniel Shiffman (The Coding Train) uses a [recursive backtracking algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_implementation) to generate mazes and display their creation in real time.  Pretty neat.
 
+![Maze Animation](/images/maze.gif)
+
 Shiffman uses the [p5.js](https://p5js.org/) library in his example, so I thought it would be fun to port it to Go and document the process.  While you don't need to have watched Shiffman's series prior to reading this post, I do recommend it.  I will be referencing his code throughout the post.
 
 ## The Algorithm
