@@ -4,38 +4,36 @@ date: 2022-10-04T11:12:19-05:00
 draft: false
 ---
 
-In [this video series](https://www.youtube.com/watch?v=HyK_Q5rrcr4), Daniel Shiffman (The Coding Train) uses a [recursive backtracking algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_implementation) to generate mazes and display their creation in real time.  Pretty neat.
+I recently came across [this video series](https://www.youtube.com/watch?v=HyK_Q5rrcr4) by Daniel Shiffman (The Coding Train) where he used a [recursive backtracking algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_implementation) to generate mazes.  Pretty neat.
 
 ![Maze Animation](/images/maze.gif)
 
-Shiffman uses the [p5.js](https://p5js.org/) library in his example, so I thought it would be fun to port it to Go and document the process.  While you don't need to have watched Shiffman's series prior to reading this post, I do recommend it.  I will be referencing his code throughout the post.
+Shiffman's example was written in JavaScript, so I thought it would be fun to port it to Go and document the journey.  
 
 ## The Algorithm
 
-Like Shiffman, we will use a recursive backtracking algorithm to generate our mazes.  The implementation is similar to [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) (DFS) with a slight twist.
+Like Shiffman, we will use a recursive backtracking algorithm to generate our mazes.  The implementation is similar to [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) (DFS) with a slight twist.  Let's observe the animation above to better understand.
 
-Let's walk through the animation (above) to get a better understanding.  We start with an empty grid of cells.  The algorithm then forms a path by "drilling" through the grid, cell by cell, removing any impeding walls along the way.  At each step, the next cell is chosen at *random*.  This produces the maze effect.  If our algorithm ever becomes "trapped", meaning it's unable to move forward without either going out of bounds or "drilling" into a previously explored cell, it will backtrack until it can continue exploring new cells.
+We start with an empty grid of cells.  The algorithm forms a path by "drilling" through the grid, cell by cell, removing the impeding walls along the way.  At each step, the next cell is chosen at *random*.  This produces the maze effect.  If our algorithm ever becomes "trapped", meaning it can't move forward without going out of bounds or "drilling" into a previously explored cell, it will backtrack until it can continue exploring new cells.
 
-As seen in the algorithm's formal definition below, this is a randomized version of DFS, called with a recursive routine.
+This is defined more concisely with the following instruction set:
 
 1. Choose a "start" cell and make it the current cell
 2. Mark the current cell as visited
 3. While the current cell has unvisited neighbor cells
-    1. Choose one of the unvisited neighbors
+    1. Randomly choose one of the unvisited neighbors
     2. Remove the wall between the current cell and the neighbor cell
     3. Execute this routine recursively for the neighbor cell
 
-One thing to note with this approach is its bias towards mazes with long passageways, which is a result of DFS's low branching factor.  While that's not necessarily a bad thing, it will reduce the complexity of our mazes.
+One thing to note with this approach is its bias towards mazes with long passageways---a result of DFS's low branching factor.  While that's not necessarily a bad thing, it does reduce the complexity of our mazes.
 
-**Note:** For creating mazes without biases, I recommend checking out [Wilson's algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Wilson's_algorithm).
+**Note:** For creating mazes without biases, check out [Wilson's algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Wilson's_algorithm).
 
 ## Data Structures
 
-Using the same terminology as our algorithm, we'll define a maze as a grid of *cells*.  To do this, we just need two structs:
+As stated before, we will represent a maze as a grid of *cells*.  To do this, we'll define the following structs:
 
 {{< highlight go >}}
-package main
-
 type Maze struct {
     cells   []*Cell     // the cells (represented as a grid)
     cols    int         // number of columns
@@ -52,7 +50,18 @@ type Cell struct {
 }
 {{</highlight >}}
 
+Additionally, our algorithm requires a stack to maintain its positional history.  Since Go doesn't provide this out of the box, we'll implement one:
+
+{{< highlight go >}}
+type Stack struct {
+    cell []Cell     // slice of cells
+}
+{{</highlight >}}
+
 ## Representing the Walls
+
+If you watch Shiffman's series, you'll notice he uses a boolean array to represent a cell's walls.
+I decided to deviate from Shiffman's approach and use a bit array for my cell walls.
 
 ### Shiffman's Design
 
