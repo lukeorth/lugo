@@ -84,13 +84,13 @@ walls = [true, true, false, true]    // top, right, left: |¯|
 While the above approach works, I've decided to deviate from this and use bit arrays instead---for two reasons:
 
 1. **Memory Savings.**  Boolean values consume an entire byte of memory. This may come as a surprise to some---after all, wouldn't a single bit suffice? Yes... but, because our CPUs are optimized to read and write in bytes, processing data smaller than this is not efficient.  Thankfully, there is a way to bypass this limitation by converting our boolean values into bits and stuffing them into a byte---specifically a `uint8`.  This is referred to as a bit array, and (in our case) it will reduce the memory requirements by $ 4\times $ without impacting efficiency.
-2. **Speed.**  The `walls` array serves several functions within our program, including providing input to our algorithm.  If the algorithm isn't aware of which walls exist, it can't determine which cells to visit next.  If we choose to represent our walls with boolean arrays, we restrict this logic to *if-then* statements.  These in turn can create branches in our compiled code, resulting in unpredictability and reduced performance.  By using bit arrays instead, we can expand our options to include bitwise operations.  These allow our algorithm to use mathematical operations to predictably (but still conditionally) execute program logic---bolstering performance.
+2. **Speed.**  The `walls` array serves several functions in our program, one of which is supplying necessary input to our algorithm.  Without knowing which walls exist, our algorithm can't determine which cells should be visited next.  If we choose to represent our walls with boolean arrays, we (unnecessarily) restrict this logic to *if-then* statements.  Such statements have a tendency to create branches in our compiled code, resulting in unpredictability and reduced performance.  By using bit arrays instead, we expand our options to include bitwise operations.  This allows our algorithm to use mathematics to predictably (but still conditionally) execute program logic---bolstering performance.
 
-With that rationale out of the way, let's now turn our attention to the implementation.  I believe the following chart should be sufficient for this.
+Thus the "key" to our wall design can be summed up with the following table.
 
 {{< highlight text >}}
-BITS     INTEGER     WALLS                     EXAMPLE
-----     -------     -----                     -------
+BITS    INTEGERS     WALLS                     EXAMPLE
+----    --------     -----                     -------
 0001        1        left                        |
 0010        2        bottom                       _
 0100        4        right                         |
@@ -112,18 +112,17 @@ BITS     INTEGER     WALLS                     EXAMPLE
 
 {{</highlight >}}
 
+An alternative method for achieving the same ends (albiet with some improvements) 
+
 <!--more-->
 
 ## The Animation
 
-Because Shiffman developed his code in JavaScript (the browser's native tongue) the animation method was practically decided for him.  Of course he'd choose to render mazes in the browser.  Since we've opted to develop with Go, we'll need a bit more creativity.
+We'll take a unique approach to the animation process.
+One approach is to create an image at each step of the maze generation process and combine these into a video format.  While this works, there are some drawbacks:
 
-Now sure, if we also wanted our mazes to be displayed in the browser we have a couple of options.
-
-1. Compile our code to WebAssembly.
-2. Create a maze API and consume it with JavaScript/HTML.
-
-I may explore that second option in a future post (no guarantees), but for right now I'd rather not tie animation to the browser.  Instead, we'll use the mighty GIF.
+1. It requires additional time and memory allocation to create/save each image.
+2. It obscures and complicates the code by turning what should be a two-step process into a three-step process.
 
 A better solution is to create the video directly from our program's memory, without building intermediate images.
 
