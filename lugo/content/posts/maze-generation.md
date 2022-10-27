@@ -4,7 +4,7 @@ date: 2022-10-04T11:12:19-05:00
 draft: false
 ---
 
-I recently came across [this video series](https://www.youtube.com/watch?v=HyK_Q5rrcr4) by Daniel Shiffman (The Coding Train) where he used a [recursive backtracking algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_implementation) to generate mazes.  Pretty neat.
+I recently came across [this video series](https://www.youtube.com/watch?v=HyK_Q5rrcr4) by Daniel Shiffman (The Coding Train) where he used a [recursive backtracking algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_implementation) to generate mazes.
 
 ![Maze Animation](/images/maze.gif)
 
@@ -12,11 +12,11 @@ Shiffman's example was written in JavaScript, so I thought it would be fun to po
 
 ## The Algorithm
 
-Like Shiffman, we will use a recursive backtracking algorithm to generate our mazes.  The implementation is similar to [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) (DFS) with a slight twist.  Let's observe the animation above to better understand.
+Like Shiffman, we will use a recursive backtracking algorithm to generate our mazes.  The implementation is similar to [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) (DFS), with a slight twist.  Let's carefully observe the animation above to get a better understanding.
 
-We start with an empty grid of cells.  The algorithm forms a path by "drilling" through the grid, cell by cell, removing the impeding walls along the way.  At each step, the next cell is chosen at *random*.  This produces the maze effect.  If our algorithm ever becomes "trapped", meaning it can't move forward without going out of bounds or "drilling" into a previously explored cell, it will backtrack until it can continue exploring new cells.
+We start off with an empty grid of cells.  The algorithm forms a path by "drilling" through the grid, cell by cell, removing the impeding walls along the way.  At each step, the next cell is chosen at *random*.  This produces the maze effect.  If our algorithm ever becomes "trapped", meaning it can't move forward without going out of bounds or "drilling" into a previously explored cell, it will backtrack until it can continue exploring new cells.
 
-This is defined more concisely with the following instruction set:
+This can be summarized more succinctly with the following instructions:
 
 1. Choose a "start" cell and make it the current cell
 2. Mark the current cell as visited
@@ -31,7 +31,7 @@ One thing to note with this approach is its bias towards mazes with long passage
 
 ## Data Structures
 
-As stated before, we will represent a maze as a grid of *cells*.  To do this, we'll define the following structs:
+As previously stated, we will represent our mazes as grids of *cells*.  To do this, we'll define the following two structs:
 
 {{< highlight go >}}
 type Maze struct {
@@ -50,18 +50,41 @@ type Cell struct {
 }
 {{</highlight >}}
 
-Additionally, our algorithm requires a stack to maintain its positional history.  Since Go doesn't provide this out of the box, we'll implement one:
+Additionally, our algorithm needs to maintain its positional history using a stack.  Since Go doesn't provide this out of the box, we'll implement our own:
 
 {{< highlight go >}}
 type Stack struct {
-    cell []Cell     // slice of cells
+    cell []Cell     // the cells contained in our stack
 }
 {{</highlight >}}
 
 ## Representing the Walls
 
-If you watch Shiffman's series, you'll notice he uses a boolean array to represent a cell's walls.
-I decided to deviate from Shiffman's approach and use a bit array for my cell walls.
+Those who have seen Shiffman's series may recall his use of boolean arrays to represent cell walls---similar to this:
+
+{{< highlight javascript >}}
+walls = [true, true, true, true]    // top, right, bottom, left
+{{</highlight >}}
+
+As shown below, each index corresponds to a specific wall---with `true` values indicating a wall's presence and `false` indicating its absence.
+
+{{< highlight text >}}
+walls[0] --> top
+walls[1] --> right
+walls[2] --> bottom
+walls[3] --> left
+{{</highlight >}}
+
+{{< highlight javascript >}}
+walls = [true, true, false, false]   //       top, right:  ¯|
+walls = [false, false, true, true]   //     bottom, left: |_
+walls = [true, true, false, true]    // top, right, left: |¯|
+{{</highlight >}}
+
+While the above approach works, I've decided to deviate and use bit arrays instead.  This is for two reasons:
+
+1. **Memory Savings.**  Boolean values consume a byte of memory. This may come as a surprise to some---after all, wouldn't a single bit suffice? Yes... but, because our CPUs are built to read and write in bytes, processing data smaller than this is not optimal.  Thankfully, there is a way to bypass this limitation by converting our boolean values into bits and stuffing them into a single byte---a `uint8`.  This is referred to as a bit array, and (in our case) it will provide $ 4\times $ memory savings with no loss in efficiency.
+2. **Speed.**  The `walls` array serves several functions in our program, one of which is the conditional logic of our algorithm.  Without knowledge of which walls exist, our algorithm can't determine which cells to visit next.  Therefore, if we use boolean arrays for this task, we (unnecessarily) restrict this logic to *if-then* statements.  These statements have the nasty tendency of creating branches in our compiled code, resulting in unpredictability and reduced performance.  By using bit arrays instead, we expand our options to include bitwise operations.  This allows our algorithm to use mathematics to predictably (but still conditionally) execute program logic---bolstering performance.
 
 ### Shiffman's Design
 
