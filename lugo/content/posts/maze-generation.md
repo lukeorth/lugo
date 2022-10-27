@@ -10,6 +10,8 @@ I recently came across [this video series](https://www.youtube.com/watch?v=HyK_Q
 
 Shiffman's example was written in JavaScript, so I thought it would be fun to port it to Go and document the journey.  
 
+<!--more-->
+
 ## The Algorithm
 
 Like Shiffman, we will use a recursive backtracking algorithm to generate our mazes.  The implementation is similar to [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) (DFS), with a slight twist.  Let's carefully observe the animation above to get a better understanding.
@@ -111,8 +113,6 @@ BITS     INTEGER     WALLS                     EXAMPLE
 1111       15        top, right, bottom, left     □
 
 {{</highlight >}}
-
-<!--more-->
 
 ## The Animation
 
