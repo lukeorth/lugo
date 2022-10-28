@@ -26,6 +26,38 @@
         padding-left: 0em;
     }
 }
+
+ /* Handles dark/light themes */
+body {
+  --text-color: #222;
+  --bkg-color: #fff;
+  --post-title-color: #303030;
+}
+body.dark-theme {
+  --text-color: #eee;
+  --bkg-color: #1F2022;
+  --post-title-color: #DBE2E9;
+}
+body {
+  background: var(--bkg-color);
+}
+h1, h2, h3, h4, h5 {
+  color: var(--text-color);
+}
+.content p {
+  color: var(--text-color);
+}
+.page-title, .post-title, .post-title a {
+  color: var(--post-title-color);
+}
+/* ************************** */
+
+.sidebar-about img {
+    border: 3px solid #FFF;
+    border-radius: 50%;
+    height: 260px;
+    width: 260px;
+}
 .social {
     margin-right: 0.5em;
     text-decoration: none !important;

@@ -2,6 +2,7 @@
 title: "Maze Generation"
 date: 2022-10-04T11:12:19-05:00
 draft: false
+tags: ["Go"]
 ---
 
 I recently came across [this video series](https://www.youtube.com/watch?v=HyK_Q5rrcr4) by Daniel Shiffman (The Coding Train) where he used a [recursive backtracking algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_implementation) to generate mazes.
