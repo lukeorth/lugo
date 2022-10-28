@@ -16,6 +16,13 @@
     .sub-heading {
         margin-left: 1em;
     }
+    .btn-toggle svg {
+        width: 1.4em;
+        height: 1.4em;
+        color: black;
+        margin: 0.08em 0.2em;
+        padding-top: 0.1em;
+    }
 }
 
 @media (max-width: 48em) {
@@ -24,6 +31,13 @@
     }
     .entries {
         padding-left: 0em;
+    }
+    .btn-toggle svg {
+        width: 1.7em;
+        height: 1.7em;
+        color: black;
+        margin: 0.08em 0.2em;
+        padding-top: 0.1em;
     }
 }
 
@@ -59,27 +73,19 @@ h1, h2, h3, h4, h5, strong {
 .content li {
     color: var(--list-color);
 }
-.btn-toggle {
-    border-radius: 1em;
-    border: none;
-    cursor: pointer;
-    overflow: hidden;
-    outline: none;
-    background-color: #9d9d9d;
-}
-.btn-toggle svg {
-    width: 1.4em;
-    height: 1.4em;
-    color: black;
-    margin: 0.08em 0.2em;
-    padding-top: 0.1em;
-
-}
 .btn-toggle .moon {
     color: var(--moon-color);
 }
 .btn-toggle .sun {
     color: var(--sun-color);
+}
+.btn-toggle {
+    border-radius: 5em;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    background-color: #9d9d9d;
 }
 /* ************************** */
 .sidebar-about img {
