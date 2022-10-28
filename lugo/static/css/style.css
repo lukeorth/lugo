@@ -47,6 +47,8 @@ body {
     --bkg-color: #fff;
     --post-title-color: #303030;
     --list-color: #515151;
+    --code-background-color: #f9f9f9;
+    --code-color: #bf616a;
     --moon-color: #121212;
     --sun-color: #FFF9A6;
 }
@@ -55,6 +57,8 @@ body.dark-theme {
     --bkg-color: #121212;
     --post-title-color: #DBE2E9;
     --list-color: #9d9d9d;
+    --code-color: #ff7f7f;
+    --code-background-color: #393D47;
     --moon-color: #FFF9A6;
     --sun-color: #121212;
 }
@@ -72,6 +76,10 @@ h1, h2, h3, h4, h5, strong {
 }
 .content li {
     color: var(--list-color);
+}
+.content code {
+    color: var(--code-color);
+    background-color: var(--code-background-color);
 }
 .btn-toggle .moon {
     color: var(--moon-color);
@@ -91,8 +99,8 @@ h1, h2, h3, h4, h5, strong {
 .sidebar-about img {
     border: 2px solid #393D47;
     border-radius: 50%;
-    height: 260px;
-    width: 260px;
+    height: 180px;
+    width: 180px;
 }
 .social {
     margin-right: 0.5em;
@@ -146,7 +154,6 @@ h1, h2, h3, h4, h5, strong {
     height: 1.1em;
     order: 2;
 }
-
 .article-toc {
     display: none;
     position: fixed;
@@ -186,7 +193,8 @@ h1, h2, h3, h4, h5, strong {
 .next-post {
     float: right;
 }
-pre code {
+.content pre code {
+    color: white;
     white-space: pre;
 }
 div.highlight pre {

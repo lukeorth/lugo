@@ -1,0 +1,20 @@
+<nav>
+	<div class="tabs" role="tablist">
+
+		{{ $tabTotal := .Get "tabTotal" }}
+		{{ $tabName := .Scratch.Get "tabName" }}
+        {{ $tabContent := .Scratch.Get "tabContent" }}
+
+		{{ range $i, $sequence := (seq $tabTotal) }}
+
+		<details class="tab">
+            <summary>{{ (replaceRE "(\\s)" "" (index $tabName $i)) }}</summary>
+            {{ (index $tabContent $i) }}
+            {{ if $.Inner }}
+            {{ end }}
+        </details>
+
+		{{ end }}
+
+	</div>
+</nav>

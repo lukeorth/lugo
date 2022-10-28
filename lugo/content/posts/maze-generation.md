@@ -117,17 +117,70 @@ BITS     INTEGER     WALLS                     EXAMPLE
 
 ## The Animation
 
-Because Shiffman developed his code in JavaScript (the browser's native tongue) the animation method was practically decided for him.  Of course he'd choose to render mazes in the browser.  Since we've opted to develop with Go, we'll need a bit more creativity.
+Because Shiffman used JavaScript, he was able to render his mazes in the browser quite easily (a perk to programming in the browser's native tongue).  Since we are using Go, however, we'll need to get a bit more creative with our approach.
 
-Now sure, if we also wanted our mazes to be displayed in the browser we have a couple of options.
+To be fair, we could also render our mazes in the browser with a little extra work.  A couple of ideas come to mind:
 
-1. Compile our code to WebAssembly.
-2. Create a maze API and consume it with JavaScript/HTML.
+1. Compiling our code to WebAssembly.
+2. Creating a maze API that's consumed by JavaScript.
 
-I may explore that second option in a future post (no guarantees), but for right now I'd rather not tie animation to the browser.  Instead, we'll use the mighty GIF.
+I may explore these options in future posts, but I'd rather shift our focus away from the browser for now.  Instead, let's use something simpler---the humble GIF.
+
+![Homer Simpson GIF](/images/simpson.gif)
+
+While any video format would work for this, GIFs are by far the easiest to implement.  For one, Go maintains a [gif package](https://pkg.go.dev/image/gif) in their standard library, so its supported right out of the box.
+
+This convenience does come with a trade-off though---storage space.  GIFs are notorious for their bloat, thanks to their poor compression technique.  When compared to other formats like MP4, it's common for GIFs to consume $ 4\times $, $ 6\times $, or even $ 9\times $ as much memory depending on the specifics.
 
 A better solution is to create the video directly from our program's memory, without building intermediate images.
 
 While this could be accomplished with any video format, I've opted to use the humble GIF.  This has everything to do with the convenient [gif package](https://pkg.go.dev/image/gif) provided in Go's standard library and nothing to do with the merits of the format itself.  It's no secret that GIFs are known for their bloat, making other video formats (like MP4) ideal.  However, these space savings come at the cost of increased complexity---a trade-off that I'm not willing to make.
 
+{{< tabs tabTotal="3" tabRightAlign="2">}}
+{{< tab tabName="Tab 1" >}}
 
+{{< highlight text >}}
+BITS     INTEGER     WALLS                     EXAMPLE
+----     -------     -----                     -------
+0001        1        left                        |
+0010        2        bottom                       _
+0100        4        right                         |
+1000        8        top                          ¯
+
+0011        3        bottom, left                |_
+0101        5        right, left                 | |
+0110        6        right, bottom                _|
+1001        9        top, left                   |¯
+1010       10        top, bottom                 ¯_
+1100       12        top, right                   ¯|
+
+0111        7        right, bottom, left         |_|
+1011       11        top, bottom, left           |¯_
+1101       13        top, right, left            |¯|
+1110       14        top, right, bottom          _¯|
+
+1111       15        top, right, bottom, left     □
+
+{{</highlight >}}
+
+{{< /tab >}}
+{{< tab tabName="Tab 2" >}}
+
+{{< highlight text >}}
+walls[0] --> top
+walls[1] --> right
+walls[2] --> bottom
+walls[3] --> left
+{{</highlight >}}
+
+{{< /tab >}}
+{{< tab tabName="Tab 3">}}
+
+{{< highlight javascript >}}
+walls = [true, true, false, false]   //       top, right:  ¯|
+walls = [false, false, true, true]   //     bottom, left: |_
+walls = [true, true, false, true]    // top, right, left: |¯|
+{{</highlight >}}
+
+{{< /tab >}}
+{{< /tabs >}}
