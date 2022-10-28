@@ -2,6 +2,7 @@
 <body>
     {{ partial "sidebar.html" . }}
     <div class="content container">
+        {{ partial "theme_toggle.html" . }}
         <h1 class="title">{{ .Title }}</h1>
         <ul class="entries">
             {{ range .Pages.GroupByDate "2006" }}
@@ -12,5 +13,6 @@
             {{ end }}
         </ul>
     </div>
+    {{ partial "scripts.html" . }}
 </body>
 </html>
