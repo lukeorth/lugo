@@ -29,29 +29,59 @@
 
  /* Handles dark/light themes */
 body {
-  --text-color: #222;
-  --bkg-color: #fff;
-  --post-title-color: #303030;
+    --text-color: #222;
+    --bkg-color: #fff;
+    --post-title-color: #303030;
+    --list-color: #515151;
+    --moon-color: #121212;
+    --sun-color: #FFF9A6;
 }
 body.dark-theme {
-  --text-color: #eee;
-  --bkg-color: #1F2022;
-  --post-title-color: #DBE2E9;
+    --text-color: #eee;
+    --bkg-color: #121212;
+    --post-title-color: #DBE2E9;
+    --list-color: #9d9d9d;
+    --moon-color: #FFF9A6;
+    --sun-color: #121212;
 }
 body {
-  background: var(--bkg-color);
+    background: var(--bkg-color);
 }
-h1, h2, h3, h4, h5 {
-  color: var(--text-color);
+h1, h2, h3, h4, h5, strong {
+    color: var(--text-color);
 }
 .content p {
-  color: var(--text-color);
+    color: var(--text-color);
 }
 .page-title, .post-title, .post-title a {
-  color: var(--post-title-color);
+    color: var(--post-title-color);
+}
+.content li {
+    color: var(--list-color);
+}
+.btn-toggle {
+    border-radius: 1em;
+    border: none;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    background-color: #9d9d9d;
+}
+.btn-toggle svg {
+    width: 1.4em;
+    height: 1.4em;
+    color: black;
+    margin: 0.08em 0.2em;
+    padding-top: 0.1em;
+
+}
+.btn-toggle .moon {
+    color: var(--moon-color);
+}
+.btn-toggle .sun {
+    color: var(--sun-color);
 }
 /* ************************** */
-
 .sidebar-about img {
     border: 3px solid #FFF;
     border-radius: 50%;
@@ -88,7 +118,7 @@ h1, h2, h3, h4, h5 {
     padding: 0em 0.7em;
     text-align: center;
     font-size: 0.7em;
-    background-color: #828282;
+    background-color: #9d9d9d;
     border-radius: 0.2em;
 }
 .entries li {
@@ -133,7 +163,7 @@ h1, h2, h3, h4, h5 {
     margin-top: 2px;
 }
 .article-toc li a {
-    color: #000;
+    color: var(--text-color);
     text-decoration: none;
 }
 .article-toc li a.active {

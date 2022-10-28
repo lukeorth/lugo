@@ -1,4 +1,6 @@
 const btn = document.querySelector(".btn-toggle");
+const moon = document.querySelector(".moon");
+const sun = document.querySelector(".sun");
 
 const currentTheme = localStorage.getItem("theme");
 if (currentTheme == "dark") {

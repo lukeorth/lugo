@@ -6,11 +6,9 @@
                 <a href="{{ .Site.BaseURL }}"><img src="/images/avatar.jpeg" alt="Avatar"></a>
             </h1>
             <p class="lead">{{ .Site.Params.description }}</p>
-            <button class="btn-toggle">Toggle Dark-Mode</button>
         </div>
         {{ partial "menu.html" . }}
         {{ partial "socials.html" . }}
         {{ partial "footnote.html" . }}
     </div>
-    <script language="javascript" type="text/javascript" src="{{ "js/theme.js" | absURL }}"></script>
 </div>
