@@ -5,19 +5,17 @@ draft: false
 tags: ["Go"]
 ---
 
-I recently came across [this video series](https://www.youtube.com/watch?v=HyK_Q5rrcr4) by Daniel Shiffman (The Coding Train) where he used a [recursive backtracking algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_implementation) to generate mazes.
-
 ![Maze Animation](/images/maze.gif)
 
-Shiffman's example was written in JavaScript, so I thought it would be fun to port it to Go and document the journey.  
+I recently came across [this video series](https://www.youtube.com/watch?v=HyK_Q5rrcr4) on maze generation by Daniel Shiffman (The Coding Train), and I found the animations to be strangely satisfying.  Since Shiffman developed his example using JavaScript, I thought it would be fun to port it to Go and document the journey.
 
 <!--more-->
 
 ## The Algorithm
 
-Like Shiffman, we will use a recursive backtracking algorithm to generate our mazes.  The implementation is similar to [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) (DFS), with a slight twist.  Let's carefully observe the animation above to get a better understanding.
+Like Shiffman, I will be using a [recursive backtracking algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_implementation) to generate the mazes.  This algorithm is very similar to [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) (DFS), with a slight twist.  Let's carefully observe the animation above to get a better understanding.
 
-We start off with an empty grid of cells.  The algorithm forms a path by "drilling" through the grid, cell by cell, removing the impeding walls along the way.  At each step, the next cell is chosen at *random*.  This produces the maze effect.  If our algorithm ever becomes "trapped", meaning it can't move forward without going out of bounds or "drilling" into a previously explored cell, it will backtrack until it can continue exploring new cells.
+We start off with an empty grid of cells.  The algorithm forms a path by "drilling" through the grid, cell by cell, removing the impeding walls along the way.  At each step, the next cell is chosen at *random*.  This produces the maze effect.  If our algorithm ever becomes "trapped", meaning it can't move forward without *a*) going out of bounds, or *b*) "drilling" into a previously explored cell, it will backtrack until it can continue exploring new cells.
 
 This can be summarized more succinctly with the following instructions:
 
@@ -53,7 +51,7 @@ type Cell struct {
 }
 {{</highlight >}}
 
-Additionally, our algorithm needs to maintain its positional history using a stack.  Since Go doesn't provide this out of the box, we'll implement our own:
+Additionally, our algorithm needs to maintain its positional history with a stack.  Since Go doesn't provide this out of the box, we'll implement our own:
 
 {{< highlight go >}}
 type Stack struct {
@@ -63,7 +61,7 @@ type Stack struct {
 
 ## Representing the Walls
 
-Those who have seen Shiffman's series may recall his use of boolean arrays to represent cell walls---similar to this:
+Those who've seen Shiffman's series may recall his use of boolean arrays to represent cell walls---similar to this:
 
 {{< highlight javascript >}}
 walls = [true, true, true, true]    // top, right, bottom, left
@@ -84,12 +82,12 @@ walls = [false, false, true, true]   //     bottom, left: |_
 walls = [true, true, false, true]    // top, right, left: |¯|
 {{</highlight >}}
 
-While the above approach works, I've decided to deviate from this and use bit arrays instead---for two reasons:
+While the above approach works, I've decided to deviate and use bit arrays instead---for two reasons:
 
-1. **Memory Savings.**  Boolean values consume an entire byte of memory. This may come as a surprise to some---after all, wouldn't a single bit suffice? Yes... but, because our CPUs are optimized to read and write in bytes, processing data smaller than this is not efficient.  Thankfully, there is a way to bypass this limitation by converting our boolean values into bits and stuffing them into a byte---specifically a `uint8`.  This is referred to as a bit array, and (in our case) it will reduce the memory requirements by $ 4\times $ without impacting efficiency.
-2. **Speed.**  The `walls` array serves several functions within our program, including providing input to our algorithm.  If the algorithm isn't aware of which walls exist, it can't determine which cells to visit next.  If we choose to represent our walls with boolean arrays, we restrict this logic to *if-then* statements.  These in turn can create branches in our compiled code, resulting in unpredictability and reduced performance.  By using bit arrays instead, we can expand our options to include bitwise operations.  These allow our algorithm to use mathematical operations to predictably (but still conditionally) execute program logic---bolstering performance.
+1. **Memory Savings.**  Boolean values consume an entire byte of memory. This might come as a surprise to some---after all, wouldn't a single bit suffice? Yes... but, because our CPUs are optimized to read and write in bytes, processing data smaller than this is not efficient.  Thankfully, there is a way to bypass this limitation by converting our boolean values into bits and stuffing them into a byte---specifically a `uint8` data type.  This is referred to as a bit array, and (in our case) it will reduce our memory usage by $ 4\times $ without decreasing efficiency.
+2. **Speed.**  The `walls` array serves several functions within our program, including providing input to our algorithm.  If the algorithm isn't aware of which walls exist, it can't determine which cells to visit next.  If we choose to represent our walls with boolean arrays, we restrict this logic to *if-then* statements.  These in turn can create branches in our compiled code, resulting in unpredictability and reduced performance.  By using a bit array instead, we can expand our options to include bitwise operations.  These allow our algorithm to use mathematical operations to predictably (but still conditionally) execute program logic, thereby bolstering performance.
 
-With that rationale out of the way, let's now turn our attention to the implementation.  I believe the following chart should be sufficient for this.
+With these explanations out of the way, let's now turn our attention to the specific data format we'll be using.  Hopefully the following chart will suffice.
 
 {{< highlight text >}}
 BITS     INTEGER     WALLS                     EXAMPLE
