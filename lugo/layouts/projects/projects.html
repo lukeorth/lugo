@@ -2,6 +2,7 @@
 <body>
     {{ partial "sidebar.html" . }}
     <div class="content container">
+        {{ partial "theme_toggle.html" . }}
         <h1 class="title">{{ .Title }}</h1>
         <div class="projects">
             {{ range .Paginator.Pages }}
@@ -17,5 +18,6 @@
             {{ end }}
         </div>
     </div>
+    {{ partial "scripts.html" . }}
 </body>
 </html>

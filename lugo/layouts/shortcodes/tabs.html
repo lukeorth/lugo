@@ -1,20 +1,26 @@
-<nav>
-	<div class="tabs" role="tablist">
+{{ $seed := now.Unix }}
+{{ $random := delimit (shuffle (split (md5 $seed) "" )) "" }}
 
-		{{ $tabTotal := .Get "tabTotal" }}
-		{{ $tabName := .Scratch.Get "tabName" }}
-        {{ $tabContent := .Scratch.Get "tabContent" }}
+<div class="tabs" id="{{ $random }}" role="tablist">
 
-		{{ range $i, $sequence := (seq $tabTotal) }}
+	{{ $tabTotal := .Get "tabTotal" }}
+	{{ $tabName := .Scratch.Get "tabName" }}
+    {{ $tabContent := .Scratch.Get "tabContent" }}
 
+	{{ range $i, $sequence := (seq $tabTotal) }}
+        
+    {{ if eq $i 0 }}
+		<details class="tab" open>
+    {{ else }}
 		<details class="tab">
-            <summary>{{ (replaceRE "(\\s)" "" (index $tabName $i)) }}</summary>
-            {{ (index $tabContent $i) }}
-            {{ if $.Inner }}
-            {{ end }}
-        </details>
+    {{ end }}
+            
+        <summary>{{ (replaceRE "(\\s)" "" (index $tabName $i)) }}</summary>
+        {{ (index $tabContent $i) }}
+        {{ if $.Inner }}
+        {{ end }}
+    </details>
 
-		{{ end }}
+	{{ end }}
 
-	</div>
-</nav>
+</div>
