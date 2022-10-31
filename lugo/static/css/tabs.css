@@ -1,71 +1,42 @@
+/* Style the tabs */
 .tabs {
-  font-size: 0;
-  margin: 25px 0;
-}
-
-.tabs:after {
-  clear: both;
-  content: '';
-  display: table;
-}
-
-.tabs .tab {
-  display: inline;
-}
-
-.tabs .tab-label {
-  background: #eee; 
-  border: 1px solid #ccc; 
-  display: inline-block;
-  font-size: 16px;
-  font-size: 1rem;
-  left: 1px;
-  margin-left: -1px;
-  padding: 10px; 
-  position: relative;
-  vertical-align: bottom;
-}
-
-.tabs .tab > [type="radio"] {
-  clip: rect(0 0 0 0);
-  height: 1px;
-  opacity: 0;
-  position: fixed;
-  width: 1px;
-  z-index: -1;
-}
-
-.tabs .tab-panel {
-  display: inline;
-  display: inline-block;
   overflow: hidden;
-  position: relative;
-  height: 0;
-  width: 0;
+  border-bottom: 1px solid var(--text-color);
 }
 
-.tabs .tab-content {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  display: block;
-  background: white;
-  padding: 0 20px;
-  border: 1px solid #ccc;
+/* Style the buttons that are used to open the tabs content */
+.tabs button {
+    font-family: Menlo, Monaco, "Courier New", monospace;
+    font-size: 0.8em;
+  background-color: var(--bkg-color);
+  color: var(--text-color);
   float: left;
-  font-size: 16px;
-  font-size: 1rem;
-  margin-top: -1px;
-  width: 100%;
+  border-top: 1px solid var(--text-color);
+  border-right: 1px solid var(--text-color);
+  border-bottom: none;
+  border-left: 1px solid var(--text-color);
+  border-radius: 5px 5px 0 0;
+  margin: 0 0.2em 0 0;
+  outline: none;
+  cursor: pointer;
+  padding: 0.5em 1.3em;
+  transition: 0.3s;
 }
 
-.tabs .tab [type="radio"]:checked + .tab-label {
-  background: white;
-  border-bottom-width: 0;
-  padding-bottom: 11px;
-  z-index: 1;
+/* Change background color of buttons on hover */
+.tabs button:hover {
+  background-color: #ddd;
+  color: var(--dark-gray);
 }
 
-.tabs .tab [type="radio"]:checked ~ .tab-panel {
-  display: inline;
+/* Create an active/current tablink class */
+.tabs button.active {
+  background-color: #ccc;
+  color: var(--dark-gray);
+}
+
+/* Style the tabs content */
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
 }

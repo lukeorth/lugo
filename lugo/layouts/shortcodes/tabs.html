@@ -1,26 +1,37 @@
-{{ $seed := now.Unix }}
-{{ $random := delimit (shuffle (split (md5 $seed) "" )) "" }}
+{{ $tabTotal := .Get "tabTotal" }}
+{{ $tabName := .Scratch.Get "tabName" }}
+{{ $tabContent := .Scratch.Get "tabContent" }}
+{{ $tabID := .Scratch.Get "tabID" }}
 
-<div class="tabs" id="{{ $random }}" role="tablist">
+<div class="tabs-container">
+    <div class="tabs" role="tablist">
 
-	{{ $tabTotal := .Get "tabTotal" }}
-	{{ $tabName := .Scratch.Get "tabName" }}
-    {{ $tabContent := .Scratch.Get "tabContent" }}
-
-	{{ range $i, $sequence := (seq $tabTotal) }}
+	    {{ range $i, $sequence := (seq $tabTotal) }}
         
-    {{ if eq $i 0 }}
-		<details class="tab" open>
-    {{ else }}
-		<details class="tab">
-    {{ end }}
-            
-        <summary>{{ (replaceRE "(\\s)" "" (index $tabName $i)) }}</summary>
+            {{ if eq $i 0 }}
+            <button class="tab active" id="{{ (index $tabID $i) }}">
+            {{ else }}
+            <button class="tab" id="{{ (index $tabID $i) }}">
+            {{ end }}
+
+                {{ (replaceRE "(\\s)" "" (index $tabName $i)) }}
+            </button>
+
+	    {{ end }}
+
+    </div>
+
+    {{ range $i, $sequence := (seq $tabTotal) }}
+    
+        {{ if eq $i 0 }}
+            <div class="tabcontent {{ (index $tabID $i) }}" style="display:block;">
+        {{ else }}
+            <div class="tabcontent {{ (index $tabID $i) }}">
+        {{ end }}
+
         {{ (index $tabContent $i) }}
         {{ if $.Inner }}
         {{ end }}
-    </details>
-
-	{{ end }}
-
+    </div>
+    {{ end }}
 </div>

@@ -16,31 +16,34 @@ paginate = 6
     linkedin_url = 'https://linkedin.com/in/lukeorth'
 [menu]
 [[menu.main]]
-  identifier = 'about'
-  name = 'about'
-  url = '/about/'
-  weight = -100
+    identifier = 'about'
+    name = 'about'
+    url = '/about/'
+    weight = -100
 [[menu.main]]
-  name = 'projects'
-  post = "<span class='alert'>New!</span>"
-  url = '/projects/'
-  weight = -100
+    name = 'projects'
+    post = "<span class='alert'>New!</span>"
+    url = '/projects/'
+    weight = -100
 
 [markup]
-  [markup.highlight]
-    anchorLineNos = false
-    codeFences = true
-    guessSyntax = false
-    hl_Lines = ''
-    hl_inline = false
-    lineAnchors = ''
-    lineNoStart = 1
-    lineNos = false
-    lineNumbersInTable = false
-    noClasses = true
-    noHl = false
-    style = 'monokai'
-    tabWidth = 4
+    [markup.highlight]
+        anchorLineNos = false
+        codeFences = true
+        guessSyntax = false
+        hl_Lines = ''
+        hl_inline = false
+        lineAnchors = ''
+        lineNoStart = 1
+        lineNos = false
+        lineNumbersInTable = false
+        noClasses = true
+        noHl = false
+        style = 'monokai'
+        tabWidth = 4
+    [markup.goldmark]
+        [markup.goldmark.renderer]
+            unsafe = true
 
 [taxonomies]
     category = 'categories'

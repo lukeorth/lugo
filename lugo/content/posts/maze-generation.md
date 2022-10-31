@@ -137,56 +137,7 @@ A better solution is to create the video directly from our program's memory, wit
 While this could be accomplished with any video format, I've opted to use the humble GIF.  This has everything to do with the convenient [gif package](https://pkg.go.dev/image/gif) provided in Go's standard library and nothing to do with the merits of the format itself.  It's no secret that GIFs are known for their bloat, making other video formats (like MP4) ideal.  However, these space savings come at the cost of increased complexity---a trade-off that I'm not willing to make.
 
 {{< tabs tabTotal="3" tabRightAlign="2">}}
-{{< tab tabName="Tab 1" >}}
-
-{{< highlight text >}}
-BITS     INTEGER     WALLS                     EXAMPLE
-----     -------     -----                     -------
-0001        1        left                        |
-0010        2        bottom                       _
-0100        4        right                         |
-1000        8        top                          ¯
-
-0011        3        bottom, left                |_
-0101        5        right, left                 | |
-0110        6        right, bottom                _|
-1001        9        top, left                   |¯
-1010       10        top, bottom                 ¯_
-1100       12        top, right                   ¯|
-
-0111        7        right, bottom, left         |_|
-1011       11        top, bottom, left           |¯_
-1101       13        top, right, left            |¯|
-1110       14        top, right, bottom          _¯|
-
-1111       15        top, right, bottom, left     □
-
-{{</highlight >}}
-
-{{< /tab >}}
-{{< tab tabName="Tab 2" >}}
-
-{{< highlight text >}}
-walls[0] --> top
-walls[1] --> right
-walls[2] --> bottom
-walls[3] --> left
-{{</highlight >}}
-
-{{< /tab >}}
-{{< tab tabName="Tab 3">}}
-
-{{< highlight javascript >}}
-walls = [true, true, false, false]   //       top, right:  ¯|
-walls = [false, false, true, true]   //     bottom, left: |_
-walls = [true, true, false, true]    // top, right, left: |¯|
-{{</highlight >}}
-
-{{< /tab >}}
-{{< /tabs >}}
-
-{{< tabs tabTotal="3" tabRightAlign="2">}}
-{{< tab tabName="Tab 1" >}}
+{{< tab tabName="test.js" >}}
 
 {{< highlight text >}}
 BITS     INTEGER     WALLS                     EXAMPLE
