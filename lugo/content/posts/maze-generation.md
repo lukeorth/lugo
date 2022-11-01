@@ -7,26 +7,26 @@ tags: ["Go"]
 
 ![Maze Animation](/images/maze.gif)
 
-I recently came across [this video series](https://www.youtube.com/watch?v=HyK_Q5rrcr4) on maze generation by Daniel Shiffman (The Coding Train), and I found the animations to be strangely satisfying.  Since Shiffman developed his example using JavaScript, I thought it would be fun to port it to Go and document the journey.
+I recently watched [this YouTube series](https://www.youtube.com/watch?v=HyK_Q5rrcr4) on maze generation by Daniel Shiffman (The Coding Train) and was amused by the animations he produced.  Since Shiffman developed his example using JavaScript, I thought it would be fun to port it to Go and document the journey.
 
 <!--more-->
 
 ## The Algorithm
 
-Like Shiffman, I will be using a [recursive backtracking algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_implementation) to generate the mazes.  This algorithm is very similar to [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) (DFS), with a slight twist.  Let's carefully observe the animation above to get a better understanding.
+Like Shiffman, I will be using a [recursive backtracking algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_implementation) to generate my mazes.  This algorithm is very similar to [depth-first search](https://en.wikipedia.org/wiki/Depth-first_search) (DFS), with a slight twist.  Let's analyze the animation above to see how it works.
 
-We start off with an empty grid of cells.  The algorithm forms a path by "drilling" through the grid, cell by cell, removing the impeding walls along the way.  At each step, the next cell is chosen at *random*.  This produces the maze effect.  If our algorithm ever becomes "trapped", meaning it can't move forward without *a*) going out of bounds, or *b*) "drilling" into a previously explored cell, it will backtrack until it can continue exploring new cells.
+We start off with an empty grid of cells.  The algorithm forms a path by "drilling" through the grid, cell by cell, removing impeding walls along the way.  At each step, the next cell is chosen at *random*.  This produces the maze effect.  If the algorithm ever becomes "trapped", meaning it can't move forward without *a*) going out of bounds, or *b*) "drilling" into a previously explored cell, it will backtrack until it can continue exploring new cells.
 
-This can be summarized more succinctly with the following instructions:
+This can be stated more succinctly with the following steps:
 
 1. Choose a "start" cell and make it the current cell
 2. Mark the current cell as visited
-3. While the current cell has unvisited neighbor cells
+3. While the current cell has any unvisited neighbor cells
     1. Randomly choose one of the unvisited neighbors
     2. Remove the wall between the current cell and the neighbor cell
     3. Execute this routine recursively for the neighbor cell
 
-One thing to note with this approach is its bias towards mazes with long passageways---a result of DFS's low branching factor.  While that's not necessarily a bad thing, it does reduce the complexity of our mazes.
+An important consideration when using this approach is its strong bias for creating mazes with long passageways---a result of DFS's low branching factor.  While that's not necessarily a bad thing, it does reduce the complexity of our mazes.
 
 **Note:** For creating mazes without biases, check out [Wilson's algorithm](https://en.wikipedia.org/wiki/Maze_generation_algorithm#Wilson's_algorithm).
 
@@ -51,7 +51,7 @@ type Cell struct {
 }
 {{</highlight >}}
 
-Additionally, our algorithm needs to maintain its positional history with a stack.  Since Go doesn't provide this out of the box, we'll implement our own:
+Additionally, our algorithm needs a way to maintain its positional history.  We can use a stack to accomplish this.  Since Go doesn't provide this out of the box, we'll implement our own:
 
 {{< highlight go >}}
 type Stack struct {
@@ -61,13 +61,13 @@ type Stack struct {
 
 ## Representing the Walls
 
-Those who've seen Shiffman's series may recall his use of boolean arrays to represent cell walls---similar to this:
+Those who have seen Shiffman's series may recall his use of boolean arrays to represent cell walls---similar to this:
 
 {{< highlight javascript >}}
 walls = [true, true, true, true]    // top, right, bottom, left
 {{</highlight >}}
 
-As shown below, each index corresponds to a specific wall---with `true` values indicating a wall's presence and `false` indicating its absence.
+Using this method, each index corresponds to a specific wall---with `true` values indicating a wall's presence and `false` indicating its absence.
 
 {{< highlight text >}}
 walls[0] --> top
@@ -82,12 +82,12 @@ walls = [false, false, true, true]   //     bottom, left: |_
 walls = [true, true, false, true]    // top, right, left: |¯|
 {{</highlight >}}
 
-While the above approach works, I've decided to deviate and use bit arrays instead---for two reasons:
+While the above approach works, I've decided to deviate from it and use bit arrays instead---for two reasons:
 
-1. **Memory Savings.**  Boolean values consume an entire byte of memory. This might come as a surprise to some---after all, wouldn't a single bit suffice? Yes... but, because our CPUs are optimized to read and write in bytes, processing data smaller than this is not efficient.  Thankfully, there is a way to bypass this limitation by converting our boolean values into bits and stuffing them into a byte---specifically a `uint8` data type.  This is referred to as a bit array, and (in our case) it will reduce our memory usage by $ 4\times $ without decreasing efficiency.
-2. **Speed.**  The `walls` array serves several functions within our program, including providing input to our algorithm.  If the algorithm isn't aware of which walls exist, it can't determine which cells to visit next.  If we choose to represent our walls with boolean arrays, we restrict this logic to *if-then* statements.  These in turn can create branches in our compiled code, resulting in unpredictability and reduced performance.  By using a bit array instead, we can expand our options to include bitwise operations.  These allow our algorithm to use mathematical operations to predictably (but still conditionally) execute program logic, thereby bolstering performance.
+1. **Memory Savings.**  Boolean values consume an entire byte of memory. This might come as a surprise to some.  After all, wouldn't a single bit suffice? Yes... but, because our CPUs are optimized to read and write in bytes, processing smaller chunks of data is simply not efficient.  Thankfully, there is a way to bypass this limitation by converting our boolean values into bits and stuffing them into a byte---specifically a `uint8`.  This is referred to as a bit array, and (in our case) it will reduce our memory usage by $ 4\times $ without compromising efficiency.
+2. **Speed.**  The `walls` array serves several important functions within our program, one of which is providing input to our algorithm (a requirement for determining which cells to visit next).  By choosing to represent cell walls with boolean arrays, we are restricting this logic to *if-then* statements.  These can subsequently create branches in our compiled code, resulting in unpredictability and reduced performance.  By using a bit array instead, we expand our options to include bitwise operations.  These will allow our algorithm to use mathematical operations to predictably (but still conditionally) execute program logic, bolstering its performance.
 
-With these explanations out of the way, let's now turn our attention to the specific data format we'll be using.  Hopefully the following chart will suffice.
+With these explanations out of the way, let's now take a look at our binary representation---which I'll conveniently summarize with the following chart.
 
 {{< highlight text >}}
 BITS     INTEGER     WALLS                     EXAMPLE
@@ -115,20 +115,20 @@ BITS     INTEGER     WALLS                     EXAMPLE
 
 ## The Animation
 
-Because Shiffman used JavaScript, he was able to render his mazes in the browser quite easily (a perk to programming in the browser's native tongue).  Since we are using Go, however, we'll need to get a bit more creative with our approach.
+Because Shiffman used JavaScript, he was able to easily render his animations in the browser (a perk to programming in the browser's native tongue).  Since we are using Go, our approach will require some additional creativity.
 
-To be fair, we could also render our mazes in the browser with a little extra work.  A couple of ideas come to mind:
+To be fair, we could also render our mazes in the browser; it would just require a little extra work.  A couple of options for doing so are:
 
 1. Compiling our code to WebAssembly.
 2. Creating a maze API that's consumed by JavaScript.
 
-I may explore these options in future posts, but I'd rather shift our focus away from the browser for now.  Instead, let's use something simpler---the humble GIF.
+While I may choose to explore these options in future posts, I'd rather focus on a browser-less solution for now.  Something a bit more primal and more indicative of our progress as a civilization---the humble GIF.
 
 ![Homer Simpson GIF](/images/simpson.gif)
 
-While any video format would work for this, GIFs are by far the easiest to implement.  For one, Go maintains a [gif package](https://pkg.go.dev/image/gif) in their standard library, so its supported right out of the box.
+While any video format would do, GIFs happen to be the easiest to implement.  For one, Go maintains a [gif package](https://pkg.go.dev/image/gif) in their standard library, so support is provided out of the box.  But on top of that, it's just a simple technology to use and understand.
 
-This convenience does come with a trade-off though---storage space.  GIFs are notorious for their bloat, thanks to their poor compression technique.  When compared to other formats like MP4, it's common for GIFs to consume $ 4\times $, $ 6\times $, or even $ 9\times $ as much memory depending on the specifics.
+The convenience is not without trade-offs though---the most significant of which is storage space.  GIFs are notorious for their bloat, thanks to their poor compression technique.  When compared to other formats like MP4, it's common for GIFs to consume $ 4\times $, $ 6\times $, or even $ 9\times $ as much memory depending on the specifics.
 
 A better solution is to create the video directly from our program's memory, without building intermediate images.
 
