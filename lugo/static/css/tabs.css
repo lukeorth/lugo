@@ -38,5 +38,5 @@
 /* Style the tabs content */
 .tabcontent {
   display: none;
-  padding: 6px 12px;
+  padding-top: 0.2em;
 }
