@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en-us" class="wf-firasans-n4-active wf-active">
+    <head>
+        <title>Maze Generation // Luke Orth</title>
+
+        <meta charset="utf-8">
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+
+<meta name="description" content="code by Luke Orth">
+
+
+        <meta property="og:title" content="Maze Generation" />
+<meta property="og:description" content="code by Luke Orth" />
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="en" />
+<meta property="og:url" content="https://lukeorth.com/posts/maze-generation/" />
+
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.css" integrity="sha384-bYdxxUwYipFNohQlHt0bjN/LCpueqWz13HufFEV1SUatKs1cm4L6fFgCi1jT643X" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/katex.min.js" integrity="sha384-Qsn9KnoKISj6dI8g7p1HBlNpVx0I8p1SvlwOldgi3IorMle61nQy4zEahWYtljaz" crossorigin="anonymous"></script>
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.2/dist/contrib/auto-render.min.js" integrity="sha384-+VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4+/RRE05" crossorigin="anonymous" onload="renderMathInElement(document.body);"></script>
+
+        <link rel="shortcut icon" href="/favicon.ico">
+
+        <link rel="stylesheet" href="https://lukeorth.com/css/poole.css">
+        <link rel="stylesheet" href="https://lukeorth.com/css/hyde.css">
+        <link rel="stylesheet" href="https://lukeorth.com/css/style.css">
+        <link rel="stylesheet" href="https://lukeorth.com/css/tabs.css">
+        <link rel="stylesheet" href="https://lukeorth.com/css/fonts.css">
+        
+
+        <meta name="generator" content="Hugo 0.101.0" />
+    </head>
+
+<body>
+    <div class="sidebar">
+    <div class="container sidebar-sticky">
+        <div class="sidebar-about" align="center">
+            <h1 class="brand">
+                
+                <a href="https://lukeorth.com"><img src="/images/avatar.jpeg" alt="Avatar"></a>
+            </h1>
+            <p class="lead">code by Luke Orth</p>
+        </div>
+        <ul class="sidebar-nav">
+
+    
+        
+            <li class="heading">
+                <a href="https://lukeorth.com/about/">About</a>
+            </li>
+        
+    
+    
+    
+
+    
+    
+        <li class="heading">
+            <a href="https://lukeorth.com/posts/">Posts</a>
+        </li>
+        
+        <li class="sub-heading">Recent</li>
+        
+            <li class="bullet">
+                <a href="https://lukeorth.com/posts/maze-generation/">Maze Generation</a>
+            </li>
+        
+    
+    
+
+    
+    
+    
+        <li class="heading">
+            <a href="https://lukeorth.com/projects/">Projects</a>
+        </li>
+        
+            <li class="bullet">
+                <a href="https://lukeorth.com/projects/project1/">Maze Generator</a>
+            </li>
+        
+    
+
+</ul>
+
+        <a target="_blank" class="social" href="https://github.com/LukeOrth">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1.2em" height="1.2em" viewBox="-2 -2 24 24">
+        <path fill="currentColor" d="M18.88 1.099C18.147.366 17.265 0 16.233 0H3.746C2.714 0 1.832.366 1.099 1.099C.366 1.832 0 2.714 0 3.746v12.487c0 1.032.366 1.914 1.099 2.647c.733.733 1.615 1.099 2.647 1.099H6.66c.19 0 .333-.007.429-.02a.504.504 0 0 0 .286-.169c.095-.1.143-.245.143-.435l-.007-.885c-.004-.564-.006-1.01-.006-1.34l-.3.052c-.19.035-.43.05-.721.046a5.555 5.555 0 0 1-.904-.091a2.026 2.026 0 0 1-.872-.39a1.651 1.651 0 0 1-.572-.8l-.13-.3a3.25 3.25 0 0 0-.41-.663c-.186-.243-.375-.407-.566-.494l-.09-.065a.956.956 0 0 1-.17-.156a.723.723 0 0 1-.117-.182c-.026-.061-.004-.111.065-.15c.07-.04.195-.059.378-.059l.26.04c.173.034.388.138.643.311a2.1 2.1 0 0 1 .631.677c.2.355.44.626.722.813c.282.186.566.28.852.28c.286 0 .533-.022.742-.065a2.59 2.59 0 0 0 .585-.196c.078-.58.29-1.028.637-1.34a8.907 8.907 0 0 1-1.333-.234a5.314 5.314 0 0 1-1.223-.507a3.5 3.5 0 0 1-1.047-.872c-.277-.347-.505-.802-.683-1.365c-.177-.564-.266-1.215-.266-1.952c0-1.049.342-1.942 1.027-2.68c-.32-.788-.29-1.673.091-2.652c.252-.079.625-.02 1.119.175c.494.195.856.362 1.086.5c.23.14.414.257.553.352a9.233 9.233 0 0 1 2.497-.338c.859 0 1.691.113 2.498.338l.494-.312a6.997 6.997 0 0 1 1.197-.572c.46-.174.81-.221 1.054-.143c.39.98.424 1.864.103 2.653c.685.737 1.028 1.63 1.028 2.68c0 .737-.089 1.39-.267 1.957c-.177.568-.407 1.023-.689 1.366a3.65 3.65 0 0 1-1.053.865c-.42.234-.828.403-1.223.507a8.9 8.9 0 0 1-1.333.235c.45.39.676 1.005.676 1.846v3.11c0 .147.021.266.065.357a.36.36 0 0 0 .208.189c.096.034.18.056.254.064c.074.01.18.013.318.013h2.914c1.032 0 1.914-.366 2.647-1.099c.732-.732 1.099-1.615 1.099-2.647V3.746c0-1.032-.367-1.914-1.1-2.647z"/>
+    </svg>
+</a>
+<a target="_blank" class="social" href="https://linkedin.com/in/lukeorth">
+    <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1.2em" viewBox="0 0 448 512">
+        <path fill="currentColor" d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3zM135.4 416H69V202.2h66.5V416zm-33.2-243c-21.3 0-38.5-17.3-38.5-38.5S80.9 96 102.2 96c21.2 0 38.5 17.3 38.5 38.5c0 21.3-17.2 38.5-38.5 38.5zm282.1 243h-66.4V312c0-24.8-.5-56.7-34.5-56.7c-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5c67.2 0 79.7 44.3 79.7 101.9V416z"/>
+    </svg>
+</a>
+
+        <p class="footnote">
+    powered by <a target="_blank" href="https://gohugo.io">Hugo</a>
+    <br>
+    &copy; 2022 Luke Orth. All rights reserved.
+</p>
+
+    </div>
+</div>
+
+    <div class="content container">
+        <div class="toggle" align="right">
+    <button class="btn-toggle">
+        <svg class="moon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+            <path fill="currentColor" d="M6 .278a.768.768 0 0 1 .08.858a7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277c.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316a.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71C0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278z"/>
+        </svg>
+        <svg class="sun" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 16 16">
+            <path fill="currentColor" d="M8 12a4 4 0 1 0 0-8a4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>
+        </svg>
+    </button>
+</div>
+
+        <div class="post">
+            <h1 class="post-title">Maze Generation</h1>
+            <div class="meta">
+                <span class="post-date">October 10, 2022</span>
+                
+                    <ul class="tags">
+                        
+                        <li class="tag-Go">
+                            <a href="https://lukeorth.com/tags/go">Go</a>
+                        </li>
+                        
+                    </ul>
+                
+            </div>
+            
+            
+            <div class="article-entry">
+                <p><img src="/images/maze.gif" alt="Maze Animation"></p>
+<p>I recently watched <a href="https://www.youtube.com/watch?v=HyK_Q5rrcr4" target="_blank">
+  this YouTube series
+</a>
+ on maze generation by Daniel Shiffman (The Coding Train) and was amused by the animations he produced.  Since Shiffman developed his example using JavaScript, I thought it would be fun to port it to Go and document the journey.</p>
+<h2 id="the-algorithm">The Algorithm</h2>
+<p>Like Shiffman, I will be using a <a href="https://en.wikipedia.org/wiki/Maze_generation_algorithm#Recursive_implementation" target="_blank">
+  recursive backtracking algorithm
+</a>
+ to generate my mazes.  This algorithm is very similar to <a href="https://en.wikipedia.org/wiki/Depth-first_search" target="_blank">
+  depth-first search
+</a>
+ (DFS), with a slight twist.  Let&rsquo;s analyze the animation above to see how it works.</p>
+<p>We start off with an empty grid of cells.  The algorithm forms a path by &ldquo;drilling&rdquo; through the grid, cell by cell, removing impeding walls along the way.  At each step, the next cell is chosen at <em>random</em>.  This produces the maze effect.  If the algorithm ever becomes &ldquo;trapped&rdquo;, meaning it can&rsquo;t move forward without <em>a</em>) going out of bounds, or <em>b</em>) &ldquo;drilling&rdquo; into a previously explored cell, it will backtrack until it can continue exploring new cells.</p>
+<p>This can be stated more succinctly with the following steps:</p>
+<ol>
+<li>Choose a &ldquo;start&rdquo; cell and make it the current cell</li>
+<li>Mark the current cell as visited</li>
+<li>While the current cell has any unvisited neighbor cells
+<ol>
+<li>Randomly choose one of the unvisited neighbors</li>
+<li>Remove the wall between the current cell and the neighbor cell</li>
+<li>Execute this routine recursively for the neighbor cell</li>
+</ol>
+</li>
+</ol>
+<p>An important consideration when using this approach is its strong bias for creating mazes with long passageways&mdash;a result of DFS&rsquo;s low branching factor.  While that&rsquo;s not necessarily a bad thing, it does reduce the complexity of our mazes.</p>
+<p><strong>Note:</strong> For creating mazes without biases, check out <a href="https://en.wikipedia.org/wiki/Maze_generation_algorithm#Wilson%27s_algorithm" target="_blank">
+  Wilson&rsquo;s algorithm
+</a>
+.</p>
+<h2 id="data-structures">Data Structures</h2>
+<p>As previously stated, we will represent our mazes as grids of <em>cells</em>.  To do this, we&rsquo;ll define the following two structs:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Maze</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cells</span>   []<span style="color:#f92672">*</span><span style="color:#a6e22e">Cell</span>     <span style="color:#75715e">// the cells (represented as a grid)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">cols</span>    <span style="color:#66d9ef">int</span>         <span style="color:#75715e">// number of columns
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">rows</span>    <span style="color:#66d9ef">int</span>         <span style="color:#75715e">// number of rows
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">scale</span>   <span style="color:#66d9ef">int</span>         <span style="color:#75715e">// width of each cell in pixels
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Cell</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">x</span>       <span style="color:#66d9ef">int</span>         <span style="color:#75715e">// x coordinate
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">y</span>       <span style="color:#66d9ef">int</span>         <span style="color:#75715e">// y coordinate
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">walls</span>   <span style="color:#66d9ef">uint8</span>       <span style="color:#75715e">// the cell&#39;s walls (explained in the next section...)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">visited</span> <span style="color:#66d9ef">bool</span>        <span style="color:#75715e">// has this cell been visited?
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">current</span> <span style="color:#66d9ef">bool</span>        <span style="color:#75715e">// is this the current cell being evaluated?
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}</span></span></code></pre></div>
+<p>Additionally, our algorithm needs a way to maintain its positional history.  We can use a stack to accomplish this.  Since Go doesn&rsquo;t provide this out of the box, we&rsquo;ll implement our own:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Stack</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">cell</span> []<span style="color:#a6e22e">Cell</span>     <span style="color:#75715e">// the cells contained in our stack
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}</span></span></code></pre></div>
+<h2 id="representing-the-walls">Representing the Walls</h2>
+<p>Those who have seen Shiffman&rsquo;s series may recall his use of boolean arrays to represent cell walls&mdash;similar to this:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">walls</span> <span style="color:#f92672">=</span> [<span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">true</span>]    <span style="color:#75715e">// top, right, bottom, left
+</span></span></span></code></pre></div>
+<p>Using this method, each index corresponds to a specific wall&mdash;with <code>true</code> values indicating a wall&rsquo;s presence and <code>false</code> indicating its absence.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>walls[0] --&gt; top
+</span></span><span style="display:flex;"><span>walls[1] --&gt; right
+</span></span><span style="display:flex;"><span>walls[2] --&gt; bottom
+</span></span><span style="display:flex;"><span>walls[3] --&gt; left</span></span></code></pre></div>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">walls</span> <span style="color:#f92672">=</span> [<span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">false</span>]   <span style="color:#75715e">//       top, right:  ¯|
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">walls</span> <span style="color:#f92672">=</span> [<span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">true</span>]   <span style="color:#75715e">//     bottom, left: |_
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">walls</span> <span style="color:#f92672">=</span> [<span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">true</span>]    <span style="color:#75715e">// top, right, left: |¯|
+</span></span></span></code></pre></div>
+<p>While the above approach works, I&rsquo;ve decided to deviate from it and use bit arrays instead&mdash;for two reasons:</p>
+<ol>
+<li><strong>Memory Savings.</strong>  Boolean values consume an entire byte of memory. This might come as a surprise to some.  After all, wouldn&rsquo;t a single bit suffice? Yes&hellip; but, because our CPUs are optimized to read and write in bytes, processing smaller chunks of data is simply not efficient.  Thankfully, there is a way to bypass this limitation by converting our boolean values into bits and stuffing them into a byte&mdash;specifically a <code>uint8</code>.  This is referred to as a bit array, and (in our case) it will reduce our memory usage by $ 4\times $ without compromising efficiency.</li>
+<li><strong>Speed.</strong>  The <code>walls</code> array serves several important functions within our program, one of which is providing input to our algorithm (a requirement for determining which cells to visit next).  By choosing to represent cell walls with boolean arrays, we are restricting this logic to <em>if-then</em> statements.  These can subsequently create branches in our compiled code, resulting in unpredictability and reduced performance.  By using a bit array instead, we expand our options to include bitwise operations.  These will allow our algorithm to use mathematical operations to predictably (but still conditionally) execute program logic, bolstering its performance.</li>
+</ol>
+<p>With these explanations out of the way, let&rsquo;s now take a look at our binary representation&mdash;which I&rsquo;ll conveniently summarize with the following chart.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>BITS     INTEGER     WALLS                     EXAMPLE
+</span></span><span style="display:flex;"><span>----     -------     -----                     -------
+</span></span><span style="display:flex;"><span>0001        1        left                        |
+</span></span><span style="display:flex;"><span>0010        2        bottom                       _
+</span></span><span style="display:flex;"><span>0100        4        right                         |
+</span></span><span style="display:flex;"><span>1000        8        top                          ¯
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>0011        3        bottom, left                |_
+</span></span><span style="display:flex;"><span>0101        5        right, left                 | |
+</span></span><span style="display:flex;"><span>0110        6        right, bottom                _|
+</span></span><span style="display:flex;"><span>1001        9        top, left                   |¯
+</span></span><span style="display:flex;"><span>1010       10        top, bottom                 ¯_
+</span></span><span style="display:flex;"><span>1100       12        top, right                   ¯|
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>0111        7        right, bottom, left         |_|
+</span></span><span style="display:flex;"><span>1011       11        top, bottom, left           |¯_
+</span></span><span style="display:flex;"><span>1101       13        top, right, left            |¯|
+</span></span><span style="display:flex;"><span>1110       14        top, right, bottom          _¯|
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>1111       15        top, right, bottom, left     □</span></span></code></pre></div>
+<h2 id="the-animation">The Animation</h2>
+<p>Because Shiffman used JavaScript, he was able to easily render his animations in the browser (a perk to programming in the browser&rsquo;s native tongue).  Since we are using Go, our approach will require some additional creativity.</p>
+<p>To be fair, we could also render our mazes in the browser; it would just require a little extra work.  A couple of options for doing so are:</p>
+<ol>
+<li>Compiling our code to WebAssembly.</li>
+<li>Creating a maze API that&rsquo;s consumed by JavaScript.</li>
+</ol>
+<p>While I may choose to explore these options in future posts, I&rsquo;d rather focus on a browser-less solution for now.  Something a bit more primal and more indicative of our progress as a civilization&mdash;the humble GIF.</p>
+<p><img src="/images/simpson.gif" alt="Homer Simpson GIF"></p>
+<p>While any video format would do, GIFs happen to be the easiest to implement.  For one, Go maintains a <a href="https://pkg.go.dev/image/gif" target="_blank">
+  gif package
+</a>
+ in their standard library, so support is provided out of the box.  But on top of that, it&rsquo;s just a simple technology to use and understand.</p>
+<p>The convenience is not without trade-offs though&mdash;the most significant of which is storage space.  GIFs are notorious for their bloat, thanks to their poor compression technique.  When compared to other formats like MP4, it&rsquo;s common for GIFs to consume $ 4\times $, $ 6\times $, or even $ 9\times $ as much memory depending on the specifics.</p>
+<p>A better solution is to create the video directly from our program&rsquo;s memory, without building intermediate images.</p>
+<p>While this could be accomplished with any video format, I&rsquo;ve opted to use the humble GIF.  This has everything to do with the convenient <a href="https://pkg.go.dev/image/gif" target="_blank">
+  gif package
+</a>
+ provided in Go&rsquo;s standard library and nothing to do with the merits of the format itself.  It&rsquo;s no secret that GIFs are known for their bloat, making other video formats (like MP4) ideal.  However, these space savings come at the cost of increased complexity&mdash;a trade-off that I&rsquo;m not willing to make.</p>
+
+
+
+
+
+<div class="tabs-container">
+    <div class="tabs" role="tablist">
+
+	    
+        
+            
+            <button class="tab active" id="fdaecb">
+            
+
+                test.js
+            </button>
+
+	    
+        
+            
+            <button class="tab" id="bcdeaf">
+            
+
+                Tab2
+            </button>
+
+	    
+        
+            
+            <button class="tab" id="afdecb">
+            
+
+                Tab3
+            </button>
+
+	    
+
+    </div>
+
+    
+    
+        
+            <div class="tabcontent fdaecb" style="display:block;">
+        
+
+        
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>BITS     INTEGER     WALLS                     EXAMPLE
+</span></span><span style="display:flex;"><span>----     -------     -----                     -------
+</span></span><span style="display:flex;"><span>0001        1        left                        |
+</span></span><span style="display:flex;"><span>0010        2        bottom                       _
+</span></span><span style="display:flex;"><span>0100        4        right                         |
+</span></span><span style="display:flex;"><span>1000        8        top                          ¯
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>0011        3        bottom, left                |_
+</span></span><span style="display:flex;"><span>0101        5        right, left                 | |
+</span></span><span style="display:flex;"><span>0110        6        right, bottom                _|
+</span></span><span style="display:flex;"><span>1001        9        top, left                   |¯
+</span></span><span style="display:flex;"><span>1010       10        top, bottom                 ¯_
+</span></span><span style="display:flex;"><span>1100       12        top, right                   ¯|
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>0111        7        right, bottom, left         |_|
+</span></span><span style="display:flex;"><span>1011       11        top, bottom, left           |¯_
+</span></span><span style="display:flex;"><span>1101       13        top, right, left            |¯|
+</span></span><span style="display:flex;"><span>1110       14        top, right, bottom          _¯|
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>1111       15        top, right, bottom, left     □</span></span></code></pre></div>
+
+
+        
+        
+    </div>
+    
+    
+        
+            <div class="tabcontent bcdeaf">
+        
+
+        
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>walls[0] --&gt; top
+</span></span><span style="display:flex;"><span>walls[1] --&gt; right
+</span></span><span style="display:flex;"><span>walls[2] --&gt; bottom
+</span></span><span style="display:flex;"><span>walls[3] --&gt; left</span></span></code></pre></div>
+
+
+        
+        
+    </div>
+    
+    
+        
+            <div class="tabcontent afdecb">
+        
+
+        
+
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#a6e22e">walls</span> <span style="color:#f92672">=</span> [<span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">false</span>]   <span style="color:#75715e">//       top, right:  ¯|
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">walls</span> <span style="color:#f92672">=</span> [<span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">true</span>]   <span style="color:#75715e">//     bottom, left: |_
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#a6e22e">walls</span> <span style="color:#f92672">=</span> [<span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">true</span>, <span style="color:#66d9ef">false</span>, <span style="color:#66d9ef">true</span>]    <span style="color:#75715e">// top, right, left: |¯|
+</span></span></span></code></pre></div>
+
+
+        
+        
+    </div>
+    
+</div>
+            </div>
+            <hr>
+            <div class="footer">
+    
+	    
+            
+        
+	    
+    
+</div>
+ 
+            
+            
+            <div class="article-toc" style="display:none;">
+                <h4></h4>
+                <nav id="TableOfContents">
+  <ul>
+    <li><a href="#the-algorithm">The Algorithm</a></li>
+    <li><a href="#data-structures">Data Structures</a></li>
+    <li><a href="#representing-the-walls">Representing the Walls</a></li>
+    <li><a href="#the-animation">The Animation</a></li>
+  </ul>
+</nav>
+            
+            
+            
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.slim.min.js" integrity="sha256-/SIrNqv8h6QGKDuNoLGA4iret+kyesCkHGzVUUV0shc=" crossorigin="anonymous"></script>
+            <script>
+                (function() {
+                    var $toc = $('#TableOfContents');
+                    if ($toc.length > 0) {
+                        var $window = $(window);
+
+                        function onScroll(){
+                            var currentScroll = $window.scrollTop();
+                            var h = $('.article-entry h1, .article-entry h2, .article-entry h3, .article-entry h4, .article-entry h5, .article-entry h6');
+                            var id = "";
+                            h.each(function (i, e) {
+                                e = $(e);
+                                if (e.offset().top - 10 <= currentScroll) {
+                                    id = e.attr('id');
+                                }
+                            });
+                            var active = $toc.find('a.active');
+                            if (active.length == 1 && active.eq(0).attr('href') == '#' + id) return true;
+    
+                            active.each(function (i, e) {
+                                $(e).removeClass('active').siblings('ul').hide();
+                            });
+                            $toc.find('a[href="#' + id + '"]').parentsUntil('#TableOfContents').each(function (i, e) {
+                                $(e).children('a').addClass('active').siblings('ul').show();
+                            });
+                        }
+
+                        $window.on('scroll', onScroll);
+                        $(document).ready(function() {
+                            $toc.find('a').parent('li').find('ul').hide();
+                            onScroll();
+                            document.getElementsByClassName('article-toc')[0].style.display = '';
+                        });
+                    }
+                })();
+            </script>
+            
+            
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        renderMathInElement(document.body, {
+                            delimiters: [
+                                {left: "$$", right: "$$", display: true},
+                                {left: "$", right: "$", display: false}
+                            ]
+                        });
+                    });
+                </script>
+            
+        </div>
+    </div>
+    <script language="javascript" type="text/javascript" src="https://lukeorth.com/js/theme.js"></script>
+    <script language="javascript" type="text/javascript" src="https://lukeorth.com/js/theme.js"></script>
+<script language="javascript" type="text/javascript" src="https://lukeorth.com/js/tabs.js"></script>
+
+</body>
+</html>
