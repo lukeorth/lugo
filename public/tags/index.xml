@@ -5,6 +5,16 @@
     <link>lukeorth.com/tags/</link>
     <description>Recent content in Tags on </description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="lukeorth.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language>
+    <lastBuildDate>Tue, 04 Oct 2022 11:12:19 -0500</lastBuildDate><atom:link href="lukeorth.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go</title>
+      <link>lukeorth.com/tags/go/</link>
+      <pubDate>Tue, 04 Oct 2022 11:12:19 -0500</pubDate>
+      
+      <guid>lukeorth.com/tags/go/</guid>
+      <description></description>
+    </item>
+    
   </channel>
 </rss>
