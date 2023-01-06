@@ -1,4 +1,4 @@
-baseURL = "lukeorth.com"
+baseURL = "https://lukeorth.com/"
 languageCode = "en-us"
 theme = "poison"
 paginate = 5
