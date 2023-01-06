@@ -7,4 +7,6 @@ nonav: true
 hidden: true
 ---
 
-I enjoy long walks on the beach, beautiful harvest moons, and lattes with extra foam.
+I enjoy long walks on the beach, warm, fuzzy slippers, and lattes with extra foam. &#9749;
+
+I also get a kick out of moving bytes around. &#128187;
