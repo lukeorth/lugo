@@ -2,3 +2,7 @@
 	path = lugo/public
 	url = git@github.com:LukeOrth/lukeorth.github.io.git
 	branch = main
+[submodule "lukeorth.github.io"]
+	path = lukeorth.github.io
+	url = https://github.com/lukeorth/lukeorth.github.io.git
+	branch = master
