@@ -1,7 +1,7 @@
 ---
 title: "Maze Generation"
 date: 2022-10-04T11:12:19-05:00
-draft: false
+draft: true
 tags: ["Go"]
 ---
 
