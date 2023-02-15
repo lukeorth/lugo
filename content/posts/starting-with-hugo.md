@@ -1,7 +1,7 @@
 ---
 title: "Starting a Blog - take three"
 date: 2023-02-07T05:32:16-06:00
-draft: false
+draft: true
 tags: ["Hugo"]
 ---
 
