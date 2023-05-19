@@ -1,8 +1,8 @@
 ---
-title: "Maze Generation"
+title: "Battleship Solver"
 date: 2022-10-04T11:12:19-05:00
 draft: true
-tags: ["Go"]
+tags: ["go", "web development"]
 ---
 
 ![Maze Animation](/images/maze-generation/maze.gif)

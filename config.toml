@@ -7,7 +7,7 @@ pluralizelisttitles = false
 [params]
     brand = "Luke Orth"                    # name of your site - appears in the sidebar
     brand_image = "/images/avatar.jpeg"  # path to the image shown in the sidebar
-    description = "always learning"
+    description = "another blog"
     dark_mode = true                    # optional - defaults to false
 
     # MENU PLACEHOLDER
@@ -15,10 +15,13 @@ pluralizelisttitles = false
         # Name:         The name to display on the menu.
         # URL:          The directory relative to the content directory.
         # HasChildren:  If the directory's files should be listed.  Default is true.
+        # External:     If the link is external. Default is false.
         # Limit:        If the files should be listed, how many should be shown.
     menu = [
         {Name = "About", URL = "/about/", HasChildren = false},
         {Name = "Posts", URL = "/posts/", Pre = "Recent", HasChildren = true, Limit = 5},
+        {Name = "Projects", URL = "", External = true, Limit = 5},
+        {Name = "Battleship Solver", URL = "https://battleship.lukeorth.com", External = true, Limit = 5},
     ]
 
     # Links to your socials.  Delete any you don't need/use. 
