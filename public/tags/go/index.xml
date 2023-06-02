@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title></title>
-    <link>https://lukeorth.com/</link>
-    <description>Recent content on </description>
+    <title>Go on </title>
+    <link>https://lukeorth.com/tags/go/</link>
+    <description>Recent content in Go on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 31 May 2023 06:29:34 -0500</lastBuildDate><atom:link href="https://lukeorth.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 31 May 2023 06:29:34 -0500</lastBuildDate><atom:link href="https://lukeorth.com/tags/go/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Battleship Solver</title>
       <link>https://lukeorth.com/posts/battleship-solver/</link>
@@ -16,28 +16,6 @@
       <description>&lt;p&gt;I recently stumbled across &lt;a href=&#34;http://www.datagenetics.com/blog/december32011/&#34;&gt;this blog post&lt;/a&gt; by Nick Berry and really enjoyed it.  If you&amp;rsquo;re interested in data science, math, or board games, I highly recommend his &lt;a href=&#34;https://datagenetics.com/blog.html&#34;&gt;DataGenetics blog&lt;/a&gt;.  It&amp;rsquo;s a treasure.&lt;/p&gt;
 &lt;p&gt;In this particular post, Nick compares strategies for &lt;em&gt;Battleship&lt;/em&gt; &amp;ndash; the classic board game you probably played as a kid.  Naturally, the most effective approach mimics how we intuitively play the game ourselves (more on that later).&lt;/p&gt;
 &lt;p&gt;Nick does a terrific job explaining the algorithm, but I wanted a way to visualize it.  To that end, I created &lt;a href=&#34;https://battleship.lukeorth.com&#34;&gt;this web app&lt;/a&gt; so that others can enjoy it too.  If you&amp;rsquo;re interested in learning more about the algorithm and its implementation in code, read on.&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>Inertia &amp; Asphalt</title>
-      <link>https://lukeorth.com/posts/inertia-and-busses/</link>
-      <pubDate>Fri, 19 May 2023 15:29:34 -0500</pubDate>
-      
-      <guid>https://lukeorth.com/posts/inertia-and-busses/</guid>
-      <description>&lt;p&gt;I don&amp;rsquo;t have much to say in this post.  I&amp;rsquo;ve had this blog for several months and haven&amp;rsquo;t written a word.  This is my attempt to break that streak.&lt;/p&gt;
-&lt;p&gt;Newton said that an object in motion will stay in motion unless acted upon by an outside force.  So, assuming I&amp;rsquo;m not homogenized with the asphalt anytime soon, I&amp;rsquo;ll be writing some more (I think).&lt;/p&gt;
-&lt;p&gt;Stay tuned.  🏃🚌&lt;/p&gt;</description>
-    </item>
-    
-    <item>
-      <title>About</title>
-      <link>https://lukeorth.com/about/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://lukeorth.com/about/about/</guid>
-      <description>I currently develop software for the U.S. Navy.
-In my free time, I enjoy building personal projects that I can share with others. Hopefully you will find them as interesting as I do.
-I also try to blog a bit.</description>
     </item>
     
   </channel>

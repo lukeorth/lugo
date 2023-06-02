@@ -3,12 +3,24 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://lukeorth.com/</loc>
-    <lastmod>2023-05-19T15:29:34-05:00</lastmod>
+    <lastmod>2023-05-31T06:29:34-05:00</lastmod>
   </url><url>
-    <loc>https://lukeorth.com/posts/inertia-and-busses/</loc>
-    <lastmod>2023-05-19T15:29:34-05:00</lastmod>
+    <loc>https://lukeorth.com/posts/battleship-solver/</loc>
+    <lastmod>2023-05-31T06:29:34-05:00</lastmod>
+  </url><url>
+    <loc>https://lukeorth.com/tags/go/</loc>
+    <lastmod>2023-05-31T06:29:34-05:00</lastmod>
+  </url><url>
+    <loc>https://lukeorth.com/tags/javascript/</loc>
+    <lastmod>2023-05-31T06:29:34-05:00</lastmod>
   </url><url>
     <loc>https://lukeorth.com/posts/</loc>
+    <lastmod>2023-05-31T06:29:34-05:00</lastmod>
+  </url><url>
+    <loc>https://lukeorth.com/tags/</loc>
+    <lastmod>2023-05-31T06:29:34-05:00</lastmod>
+  </url><url>
+    <loc>https://lukeorth.com/posts/inertia-and-busses/</loc>
     <lastmod>2023-05-19T15:29:34-05:00</lastmod>
   </url><url>
     <loc>https://lukeorth.com/about/</loc>
@@ -16,7 +28,5 @@
     <loc>https://lukeorth.com/about/about/</loc>
   </url><url>
     <loc>https://lukeorth.com/series/</loc>
-  </url><url>
-    <loc>https://lukeorth.com/tags/</loc>
   </url>
 </urlset>

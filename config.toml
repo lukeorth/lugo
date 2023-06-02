@@ -5,10 +5,13 @@ paginate = 5
 pluralizelisttitles = false
 
 [params]
-    brand = "Luke Orth"                    # name of your site - appears in the sidebar
-    brand_image = "/images/avatar.jpeg"  # path to the image shown in the sidebar
+    brand = "Luke Orth"                     # name of your site - appears in the sidebar
+    brand_image = "/images/avatar.jpeg"     # path to the image shown in the sidebar
     description = "another blog"
-    dark_mode = true                    # optional - defaults to false
+    dark_mode = true                        # optional - defaults to false
+    remark42 = true                         # optional - defaults to false
+    remark42_host = "https://remark42.lukeorth.com"
+    remark42_site_id = "remark42.lukeorth"
 
     # MENU PLACEHOLDER
     # Menu dict keys:
@@ -63,6 +66,9 @@ pluralizelisttitles = false
     list_color_dark = "#9d9d9d"         # default is #9d9d9d
     link_color_dark = "#268bd2"         # default is #268bd2
     date_color_dark = "#9a9a9a"         # default is #9a9a9a
+
+[markup.goldmark.renderer]
+    unsafe = true
 
 [taxonomies]
     series = 'series'
