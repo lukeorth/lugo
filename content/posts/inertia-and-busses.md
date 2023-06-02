@@ -1,5 +1,5 @@
 ---
-title: "Inertia & Asphalt"
+title: "Inertia"
 date: 2023-05-19T15:29:34-05:00
 draft: false
 ---
