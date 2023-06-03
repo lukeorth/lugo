@@ -2,20 +2,20 @@
 title: "Battleship Solver"
 date: 2023-05-31T06:29:34-05:00
 tags: ["Go", "JavaScript"]
-draft: true
+draft: false
 ---
 
-I recently stumbled across [this blog post](http://www.datagenetics.com/blog/december32011/) by Nick Berry and really enjoyed it.  If you're interested in data science, math, or board games, I highly recommend his [DataGenetics blog](https://datagenetics.com/blog.html).  It's a treasure.
+I recently read [this blog post](http://www.datagenetics.com/blog/december32011/) by Nick Berry and really enjoyed it.  If you're interested in data science, math, or board games, I highly recommend his [DataGenetics blog](https://datagenetics.com/blog.html).  It's a treasure.
 
-In this particular post, Nick compares strategies for *Battleship* -- the classic board game you probably played as a kid.  Naturally, the most effective approach mimics how we intuitively play the game ourselves (more on that later).
+In this particular post, Nick compared strategies for *Battleship* -- the classic board game you probably played as a kid.  Not surprisingly, he found that the most effective approach mimics how we intuitively play the game ourselves (more on that later).
 
-Nick does a terrific job explaining the algorithm, but I wanted a way to visualize it.  To that end, I created [this web app](https://battleship.lukeorth.com) so that others can enjoy it too.  If you're interested in learning more about the algorithm and its implementation in code, read on.
+While Nick does a terrific job explaining the algorithm, I found myself wanting to visualize and play with it some more.  To that end, I created [this web app](https://battleship.lukeorth.com), which I'll be expounding in this post.
 
 <!--more-->
 
-## Battleship Strategy
+## The Strategy
 
-The official *Battleship* game rules can be found [here](https://www.hasbro.com/common/instruct/battleship.pdf) (if you're in need of a refresher).
+If you need a refresher, the official game rules can be found [here](https://www.hasbro.com/common/instruct/battleship.pdf) (if you're in need of a refresher).
 
 *Battleship* is considered an "unsolvable" game, meaning there is no strategy that can force a win every time.  This is true for other games as well, like *Monopoly*, *black jack*, and *backgammon*.  Each of these contains some randomness or secrecy that prevents us from reliably computing future outcomes. 
 

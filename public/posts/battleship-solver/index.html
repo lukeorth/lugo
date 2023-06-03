@@ -10,21 +10,17 @@
 <script defer language="javascript" type="text/javascript" src="https://lukeorth.com/js/auto-render.min.js"></script>
 
 
-
-
-
 <script defer language="javascript" type="text/javascript" src="https://lukeorth.com/js/katex.js"></script>
 <script defer language="javascript" type="text/javascript" src="https://lukeorth.com/js/toc.js"></script>
-
-
-
-
 
     
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
 
     
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    
+    <link rel="icon" href=/favicon.png>
 
     
     
@@ -124,7 +120,7 @@
     },
     "datePublished": "2023-05-31",
     "description": "",
-    "wordCount":  254 ,
+    "wordCount":  250 ,
     "mainEntityOfPage": "True",
     "dateModified": "2023-05-31",
     "image": {
@@ -279,7 +275,7 @@
                             </li>
                         
                             <li class="bullet">
-                                <a href="https://lukeorth.com/posts/inertia-and-busses/">Inertia &amp; Asphalt</a>
+                                <a href="https://lukeorth.com/posts/inertia/">Inertia</a>
                             </li>
                         
                     
@@ -418,11 +414,11 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
     
 </div>
 
-  <p>I recently stumbled across <a href="http://www.datagenetics.com/blog/december32011/">this blog post</a> by Nick Berry and really enjoyed it.  If you&rsquo;re interested in data science, math, or board games, I highly recommend his <a href="https://datagenetics.com/blog.html">DataGenetics blog</a>.  It&rsquo;s a treasure.</p>
-<p>In this particular post, Nick compares strategies for <em>Battleship</em> &ndash; the classic board game you probably played as a kid.  Naturally, the most effective approach mimics how we intuitively play the game ourselves (more on that later).</p>
-<p>Nick does a terrific job explaining the algorithm, but I wanted a way to visualize it.  To that end, I created <a href="https://battleship.lukeorth.com">this web app</a> so that others can enjoy it too.  If you&rsquo;re interested in learning more about the algorithm and its implementation in code, read on.</p>
-<h2 id="battleship-strategy">Battleship Strategy</h2>
-<p>The official <em>Battleship</em> game rules can be found <a href="https://www.hasbro.com/common/instruct/battleship.pdf">here</a> (if you&rsquo;re in need of a refresher).</p>
+  <p>I recently read <a href="http://www.datagenetics.com/blog/december32011/">this blog post</a> by Nick Berry and really enjoyed it.  If you&rsquo;re interested in data science, math, or board games, I highly recommend his <a href="https://datagenetics.com/blog.html">DataGenetics blog</a>.  It&rsquo;s a treasure.</p>
+<p>In this particular post, Nick compared strategies for <em>Battleship</em> &ndash; the classic board game you probably played as a kid.  Not surprisingly, he found that the most effective approach mimics how we intuitively play the game ourselves (more on that later).</p>
+<p>While Nick does a terrific job explaining the algorithm, I found myself wanting to visualize and play with it some more.  To that end, I created <a href="https://battleship.lukeorth.com">this web app</a>, which I&rsquo;ll be expounding in this post.</p>
+<h2 id="the-strategy">The Strategy</h2>
+<p>If you need a refresher, the official game rules can be found <a href="https://www.hasbro.com/common/instruct/battleship.pdf">here</a> (if you&rsquo;re in need of a refresher).</p>
 <p><em>Battleship</em> is considered an &ldquo;unsolvable&rdquo; game, meaning there is no strategy that can force a win every time.  This is true for other games as well, like <em>Monopoly</em>, <em>black jack</em>, and <em>backgammon</em>.  Each of these contains some randomness or secrecy that prevents us from reliably computing future outcomes.</p>
 <p>In contrast, games like chess and checkers are considered &ldquo;solvable&rdquo; since their state is fully known.  With enough computational power, every possible outcome can be predicted with certainty.</p>
 <p>Even still, as anyone that has ever played one of these &ldquo;unsolvable&rdquo; games knows, there are better and worse ways to play them &ndash; even if victory is not always guaranteed.  The strategies for such games typically involves some form of probabilistic reasoning</p>
@@ -431,7 +427,7 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
     
 	    
             
-	            <a class="previous-post" href="https://lukeorth.com/posts/inertia-and-busses/?ref=footer"><span style="font-weight:bold;">« Previous</span><br>Inertia &amp; Asphalt</a>
+	            <a class="previous-post" href="https://lukeorth.com/posts/inertia/?ref=footer"><span style="font-weight:bold;">« Previous</span><br>Inertia</a>
 	        
         
 	    
@@ -465,7 +461,7 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
       <h4 id="contents"></h4>
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#battleship-strategy">Battleship Strategy</a></li>
+    <li><a href="#the-strategy">The Strategy</a></li>
   </ul>
 </nav>
     </div>
