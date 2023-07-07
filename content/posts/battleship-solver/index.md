@@ -19,20 +19,20 @@ If you're unfamiliar with *Battleship* or need a refresher, the official game ru
 
 First, it's important to note that *Battleship* is classified as an "unsolvable" game, meaning there is no strategy that can force a win every time.  Like *Yahtzee* or *black jack*, it's (somewhat) dependent on chance.
 
-That said, there are still better/worse ways to play, and probabilistic reasoning can be used to increase the odds of victory.  Offensively, this means:
+That said, there are still better/worse ways to play, and probabilistic reasoning can be used to increase the odds of victory.  This typically means:
 
 1. Targeting large, unexplored areas of "open water"
 2. Concentrating fire around cells that have already been "hit"
 
-These strategies are familiar to most and easy to intuit.  For example, consider the following game board, where gray dots represent "misses."
+These strategies are familiar to most and they're easy to intuit.  For example, consider the following game board, where gray dots represent "misses."
 
 ![intuition_image](images/intuition_1.png?w=400&l=lazy "Game Board 1")
 
-Even to the uninitiated, it's apparent that this player's next salvo should fire upon rows _F_ through _J_.  That region is the least explored, so it's the most likely to yield a "hit."
+Even to the uninitiated, it's apparent that the next salvo should focus on rows _F_ through _J_.  These lower quadrants are the least explored, thereby yielding the highest probability of success.
 
 ![intuition_image](images/intuition_2.png?w=400&l=lazy "Game Board 2")
 
-This assumption is correct, and it demonstrates the effectiveness of our intuition when applied to _Battleship_.
+This is clearly a contrived example, but it demonstrates the general effectiveness of our intuition (at least when applied to _Battleship_).
 
 This is a contrived example of course, but it demonstrates that our approximations are 
 
