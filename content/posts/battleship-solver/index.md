@@ -2,16 +2,26 @@
 title: "Battleship Solver"
 date: 2023-05-31T06:29:34-05:00
 tags: ["Go", "JavaScript"]
-draft: true
+draft: false
 ---
 
-I recently read [this blog post](http://www.datagenetics.com/blog/december32011/) by Nick Berry and thoroughly enjoyed it.  If you're interested in data science, math, or board games, I highly recommend his [DataGenetics blog](https://datagenetics.com/blog.html).  It's a treasure.
+Assume you're shown the following _Battleship_ board and asked to determine which cell to target next.
 
-In this particular post, Nick compared strategies for the classic *Battleship* board game.  Not surprisingly, he found that the most effective approach mimics how we intuitively play the game ourselves (more on that later).
-
-While he does a terrific job explaining the algorithm (with one minor caveat), I found myself wanting to visualize and play with it some more.  To that end, I created [this web app](https://battleship.lukeorth.com) --- the subject of this post.
+![intuition_image](images/intuition_1.png?w=400&l=lazy "Game Board 1")
+  
+Which cell would you choose?
 
 <!--more-->
+
+## Our Intuition
+
+To anyone familiar with the game, it's apparent that the bottom two quadrants yield the highest probability of landing a "hit."  That said, you probably selected a cell in this region.
+
+![intuition_image](images/intuition_2.png?w=400&l=lazy "Game Board 2")
+
+## Strategy
+
+I recently read [this blog post](http://www.datagenetics.com/blog/december32011/) by Nick Berry which evaluates different strategies for the board game _Battleship_.  The post does a terrific job explaining the various approaches, but I wanted to visualize and play with it some more.  To that end, I created [this web app](https://battleship.lukeorth.com) --- the subject of this post.
 
 ## Strategy
 
@@ -19,9 +29,9 @@ If you're unfamiliar with *Battleship* or need a refresher, the official game ru
 
 It's important to note that *Battleship* is considered an "unsolvable" game, meaning there is no strategy that can force a win every time.  Like *Yahtzee* or *black jack*, it's (somewhat) dependent on chance.  
 
-That said, there are still better/worse ways to play, and probabilistic reasoning can be used to increase the odds of victory.  "Knowing thy enemy" plays a significant role, but beyond that, *Battleship* is really just a numbers game.
+That said, there are still better/worse ways to play, and probabilistic reasoning can be used to increase the odds of victory.  It's just a numbers game, with a bit of Sun Tzu's "know thy enemy" tactics to keep things interesting.
 
-### Our Intuition
+### Hunt & Destroy
 
 Some of this comes from "knowing thy enemy," but the rest is a numbers game.  Namely:
 
@@ -30,8 +40,6 @@ These strategies are familiar to most.  However, even to newcomers (or anyone wi
 You likely already incorporate these strategies into your gameplay.
 
 These strategies are familiar to most and they're easy to intuit.  For example, consider the following game board, where gray dots represent "misses."
-
-![intuition_image](images/intuition_1.png?w=400&l=lazy "Game Board 1")
 
 Even to the uninitiated, it's apparent that the next salvo should focus on rows _F_ through _J_.  These lower quadrants are the least explored, thereby yielding the highest probability of success.
 
