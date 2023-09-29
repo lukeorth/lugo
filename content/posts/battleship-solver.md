@@ -2,7 +2,7 @@
 title: "Battleship Solver"
 date: 2023-05-31T06:29:34-05:00
 tags: ["Go", "JavaScript"]
-draft: false
+draft: true
 ---
 
 I recently read [this blog post](http://www.datagenetics.com/blog/december32011/) by Nick Berry and really enjoyed it.  If you're interested in data science, math, or board games, I highly recommend his [DataGenetics blog](https://datagenetics.com/blog.html).  It's a treasure.
