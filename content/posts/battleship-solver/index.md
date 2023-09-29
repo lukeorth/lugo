@@ -2,7 +2,7 @@
 title: "Battleship Solver"
 date: 2023-05-31T06:29:34-05:00
 tags: ["Go", "JavaScript"]
-draft: false
+draft: true
 ---
 
 Assume you're shown the following _Battleship_ board and asked to determine which cell to target next.
