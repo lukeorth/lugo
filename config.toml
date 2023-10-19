@@ -10,6 +10,11 @@ pluralizelisttitles = false
     description = "another blog"
     dark_mode = true                        # optional - defaults to false
 
+    # Plausible
+    plausible = true
+    plausible_domain = "lukeorth.com"
+    plausible_script = "https://plausible.lukeorth.com/js/script.js"
+
     # If using Remark42 as commenting engine, uncomment and configure these lines
     remark42 = true                         # optional - defaults to false
     remark42_host = "https://remark42.lukeorth.com"
