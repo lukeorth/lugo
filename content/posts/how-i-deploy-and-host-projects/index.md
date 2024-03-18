@@ -1,7 +1,7 @@
 ---
 title: "How I Deploy and Host Projects"
 date: 2023-11-07T08:56:34-05:00
-draft: false
+draft: true
 ---
 I'm currently hosting several sites and services on DigitalOcean.  This includes (but is not limited to):
 

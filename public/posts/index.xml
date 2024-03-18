@@ -6,15 +6,8 @@
     <description>Recent content in Posts on </description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 07 Nov 2023 08:56:34 -0500</lastBuildDate>
+    <lastBuildDate>Fri, 19 May 2023 15:29:34 -0500</lastBuildDate>
     <atom:link href="https://lukeorth.com/posts/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>How I Deploy and Host Projects</title>
-      <link>https://lukeorth.com/posts/how-i-deploy-and-host-projects/</link>
-      <pubDate>Tue, 07 Nov 2023 08:56:34 -0500</pubDate>
-      <guid>https://lukeorth.com/posts/how-i-deploy-and-host-projects/</guid>
-      <description>&lt;p&gt;I&amp;rsquo;m currently hosting several sites and services on DigitalOcean.  This includes (but is not limited to):&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;My blog (&lt;em&gt;this site&lt;/em&gt;)&lt;/li&gt;&#xA;&lt;li&gt;A &lt;a href=&#34;https://poison.lukeorth.com/&#34; target=&#34;_blank&#34;&gt;demo site&lt;/a&gt; for my &lt;em&gt;Poison&lt;/em&gt; Hugo theme&lt;/li&gt;&#xA;&lt;li&gt;A &lt;a href=&#34;https://battleship.lukeorth.com/&#34; target=&#34;_blank&#34;&gt;personal project&lt;/a&gt;&lt;/li&gt;&#xA;&lt;li&gt;An instance of &lt;a href=&#34;https://plausible.io/&#34; target=&#34;_blank&#34;&gt;Plausible&lt;/a&gt; for site analytics&lt;/li&gt;&#xA;&lt;li&gt;An instance of &lt;a href=&#34;https://remark42.com/&#34; target=&#34;_blank&#34;&gt;Remark42&lt;/a&gt; for comments&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;All of this runs on a \$6/month droplet using &lt;a href=&#34;https://docs.docker.com/compose/&#34; target=&#34;_blank&#34;&gt;Docker Compose&lt;/a&gt; and &lt;a href=&#34;https://www.nginx.com/&#34; target=&#34;_blank&#34;&gt;Nginx&lt;/a&gt;.&lt;/p&gt;&#xA;&lt;p&gt;Despite my ignorance when first setting things up, this approach has aged well.  It’s easy to add new projects, and I no longer dread making deployments. Instead of spending time administering existing services, I’m busy building new ones.&lt;/p&gt;&#xA;&lt;p&gt;In this post, I&amp;rsquo;ll provide an overview of my setup, explain how it works, and discuss some planned improvements.&lt;/p&gt;</description>
-    </item>
     <item>
       <title>Inertia</title>
       <link>https://lukeorth.com/posts/inertia/</link>
