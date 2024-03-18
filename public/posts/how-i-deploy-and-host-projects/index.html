@@ -58,11 +58,11 @@
 
 <!-- Open Graph image and Twitter Card metadata -->
 
-<title itemprop="name">Luke Orth - About</title>
-<meta property="og:title" content=Luke&#32;Orth&#32;-&#32;About />
-<meta name="twitter:title" content=Luke&#32;Orth&#32;-&#32;About />
-<meta itemprop="name" content=Luke&#32;Orth&#32;-&#32;About />
-<meta name="application-name" content=Luke&#32;Orth&#32;-&#32;About />
+<title itemprop="name">Luke Orth - How I Deploy and Host Projects</title>
+<meta property="og:title" content=Luke&#32;Orth&#32;-&#32;How&#32;I&#32;Deploy&#32;and&#32;Host&#32;Projects />
+<meta name="twitter:title" content=Luke&#32;Orth&#32;-&#32;How&#32;I&#32;Deploy&#32;and&#32;Host&#32;Projects />
+<meta itemprop="name" content=Luke&#32;Orth&#32;-&#32;How&#32;I&#32;Deploy&#32;and&#32;Host&#32;Projects />
+<meta name="application-name" content=Luke&#32;Orth&#32;-&#32;How&#32;I&#32;Deploy&#32;and&#32;Host&#32;Projects />
 <meta property="og:site_name" content="" />
 
 
@@ -72,14 +72,14 @@
 <meta name="twitter:description" content="" />
 
 
-<base href="https://lukeorth.com/about/about/" />
-<link rel="canonical" href="https://lukeorth.com/about/about/" itemprop="url" />
-<meta name="url" content="https://lukeorth.com/about/about/" />
-<meta name="twitter:url" content="https://lukeorth.com/about/about/" />
-<meta property="og:url" content="https://lukeorth.com/about/about/" />
+<base href="https://lukeorth.com/posts/how-i-deploy-and-host-projects/" />
+<link rel="canonical" href="https://lukeorth.com/posts/how-i-deploy-and-host-projects/" itemprop="url" />
+<meta name="url" content="https://lukeorth.com/posts/how-i-deploy-and-host-projects/" />
+<meta name="twitter:url" content="https://lukeorth.com/posts/how-i-deploy-and-host-projects/" />
+<meta property="og:url" content="https://lukeorth.com/posts/how-i-deploy-and-host-projects/" />
 
 
-<meta property="og:updated_time" content="0001-01-01T00:00:00Z" />
+<meta property="og:updated_time" content="2023-11-07T08:56:34-05:00" />
 
 
 <link rel="sitemap" type="application/xml" title="Sitemap" href='https://lukeorth.com/sitemap.xml' />
@@ -389,11 +389,15 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
                 <div class="post">
   <div class="info">
   <h1 class="post-title">
-    <a href="https://lukeorth.com/about/about/">About</a>
+    <a href="https://lukeorth.com/posts/how-i-deploy-and-host-projects/">How I Deploy and Host Projects</a>
   </h1>
 
   <div class="headline">
     <div>
+      
+      <time datetime=" 2023-11-07T08:56:34-0500" class="post-date">
+        November 7, 2023
+      </time>
       
       <span> - </span>
       <span class="reading-time">
@@ -401,7 +405,7 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
           
         
 
-        <span>1 min read</span>
+        <span>3 mins read</span>
       </span>
     </div>
 
@@ -414,15 +418,119 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
   
 </div>
 
-  <p>I currently write software for the U.S. Navy.</p>
-<p>In my free time, I enjoy building personal projects that I can share with others.</p>
-<p>I also try to blog a bit.</p>
+  <p>I&rsquo;m currently hosting several sites and services on DigitalOcean.  This includes (but is not limited to):</p>
+<ol>
+<li>My blog (<em>this site</em>)</li>
+<li>A <a href="https://poison.lukeorth.com/" target="_blank">demo site</a> for my <em>Poison</em> Hugo theme</li>
+<li>A <a href="https://battleship.lukeorth.com/" target="_blank">personal project</a></li>
+<li>An instance of <a href="https://plausible.io/" target="_blank">Plausible</a> for site analytics</li>
+<li>An instance of <a href="https://remark42.com/" target="_blank">Remark42</a> for comments</li>
+</ol>
+<p>All of this runs on a \$6/month droplet using <a href="https://docs.docker.com/compose/" target="_blank">Docker Compose</a> and <a href="https://www.nginx.com/" target="_blank">Nginx</a>.</p>
+<p>Despite my ignorance when first setting things up, this approach has aged well.  It’s easy to add new projects, and I no longer dread making deployments. Instead of spending time administering existing services, I’m busy building new ones.</p>
+<p>In this post, I&rsquo;ll provide an overview of my setup, explain how it works, and discuss some planned improvements.</p>
+<h2 id="how-it-works">How It Works</h2>
+<h3 id="hosting">Hosting</h3>
+<p>As previously stated, I use DigitalOcean for hosting.  Any VPS would do though (Linode, Vultr, etc.).  I plan to eventually move everything onto a Raspberry Pi and self-host from home, but that&rsquo;s another project.</p>
+<h3 id="subdomains">Subdomains</h3>
+<p>Because I have so many sites, I use a single parent domain (lukeorth.com) with subdomains under it.  This helps reduce costs (I only pay for one domain name) while still providing easy, memorable handles that I can share with others.</p>
 
+
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+    const lsTheme = localStorage.getItem("theme")
+    const hugoTheme = document.body.classList.contains("dark-theme") ? "dark" : null
+    const currTheme = lsTheme ? lsTheme : hugoTheme;
+    const mermaidTheme = currTheme == "light" ? "default" : "dark"
+
+    mermaid.initialize({theme: mermaidTheme});
+</script>
+
+
+
+<div class="mermaid">
+flowchart LR
+    subgraph A[Parent Domain]
+        a1(lukeorth.com)
+    end
+    subgraph B[Subdomains]
+        b1("`***battleship***.lukeorth.com`")
+        b2("`***poison***.lukeorth.com`")
+        b3("`***plausible***.lukeorth.com`")
+    end
+    A --> b1
+    A --> b2
+    A --> b3
+
+</div>
+
+<p>An alternative approach is to use subdirectories.  So <em>battleship.lukeorth.com</em> would become <em>lukeorth.com/battleship</em>.</p>
+<h3 id="reverse-proxy">Reverse Proxy</h3>
+<p>Anytime a single server hosts multiple sites, it&rsquo;s recommended to use a reverse proxy.  This is because only <em>one</em> application is allowed to listen on a port at any given time.  By default, port 80 is used for HTTP and port 443 for HTTPS.</p>
+<p>In my case, this means that only one application can serve requests to <em><a href="https://lukeorth.com" target="_blank">https://lukeorth.com</a></em> (which is really <em><a href="https://lukeorth.com:443" target="_blank">https://lukeorth.com:443</a></em>).  All other applications must use different ports, and users must specify these ports in the URL (i.e. <em><a href="https://lukeorth.com:9000" target="_blank">https://lukeorth.com:9000</a></em>).  This is clearly not ideal.</p>
+
+
+<div class="mermaid">
+flowchart TD
+    subgraph A[Users]
+        a1(Joe)
+        a2(Bob)
+        a3(Sue)
+    end
+    subgraph B[Applications]
+        b1(Poison Theme) 
+        b2(Blog)
+        b3(Battleship App)
+    end
+    a1 -- https://lukeorth.com:9000 --> b1
+    a2 -- https://lukeorth.com:7000 --> b2
+    a3 -- https://lukeorth.com:8850 --> b3
+
+</div>
+
+<p>To mitigate this, I have a reverse proxy standing between my applications and the Internet.  The apps still run on different ports, but they&rsquo;re mapped to my subdomains.  Now, when a user makes a request, the reverse proxy matches it to the appropriate application and routes the request internally.</p>
+
+
+<div class="mermaid">
+flowchart TD
+    subgraph A[Users]
+        a1(Joe)
+        a2(Bob)
+        a3(Sue)
+    end
+    subgraph B[Applications]
+        b1(Poison Theme) 
+        b2(Blog)
+        b3(Battleship App)
+    end
+    b{Reverse Proxy}
+    a1 -- https://poison.lukeorth.com --> b
+    a2 -- https://lukeorth.com --> b
+    a3 -- https://battleship.lukeorth.com --> b
+    b -- https://lukeorth.com:9000 --> b1
+    b -- https://lukeorth.com:7000 --> b2
+    b -- https://lukeorth.com:8850 --> b3
+
+</div>
+
+<h3 id="certificates">Certificates</h3>
+<p>Serving sites over HTTPS is no longer just the nice thing to do.  It&rsquo;s a requirement for most browsers.</p>
+<p><img alt="https-certificate-error" height="656" loading="lazy" src="/posts/how-i-deploy-and-host-projects/images/cert-error_hu89b13a0fc0f60aa1d130736815da6f7b_78163_974x656_resize_box_3.png" title="HTTPS Certificate Error" width="974">
+If you&rsquo;ve ever encountered</p>
+<h3 id="docker-compose">Docker Compose</h3>
+<p>To start, Docker Compose keeps things tidy by defining all services in a single <code>docker-compose.yml</code> file.  Additionally, Nginx functions as a reverse proxy (also running as a container).  This enables me to host multiple services on a single server by routing traffic to specific subdomains.  Not only does this reduce complexity, but also cuts costs.</p>
+<h2 id="disclaimer">Disclaimer</h2>
+<p>This is the deployment strategy that works best for <em>me</em>.  It may not be the strategy that&rsquo;s best for <em>you</em>.</p>
+<p>If you are command-line averse or don&rsquo;t use containers, I don&rsquo;t recommend this.  Also, if you&rsquo;re only hosting static sites, there are free alternatives like GitHub Pages and Netlify that may work better.</p>
+<p>Evaluate your own preferences/requirements and plan accordingly.</p>
   
   <hr>
 <div class="footer">
     
 	    
+            <a class="previous-post" href="https://lukeorth.com/posts/inertia/?ref=footer"><span style="font-weight:bold;">« Previous</span><br>Inertia</a>
+        
 	    
     
 </div>
@@ -455,7 +563,20 @@ powered by <a target="_blank" href="https://gohugo.io">Hugo</a> | themed with <a
     <div class="article-toc ">
     <div class="toc-wrapper">
       <h4 id="contents"></h4>
-      <nav id="TableOfContents"></nav>
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#how-it-works">How It Works</a>
+      <ul>
+        <li><a href="#hosting">Hosting</a></li>
+        <li><a href="#subdomains">Subdomains</a></li>
+        <li><a href="#reverse-proxy">Reverse Proxy</a></li>
+        <li><a href="#certificates">Certificates</a></li>
+        <li><a href="#docker-compose">Docker Compose</a></li>
+      </ul>
+    </li>
+    <li><a href="#disclaimer">Disclaimer</a></li>
+  </ul>
+</nav>
     </div>
 </div>
 
